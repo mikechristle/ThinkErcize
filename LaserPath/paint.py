@@ -64,7 +64,7 @@ def paint():
             show_mirrors()
         case state.ST_WAIT:
             show_laser()
-        case state.ST_DONE:
+        case state.ST_FIRE:
             fire_laser()
 
     pygame.display.flip()
@@ -129,6 +129,19 @@ def update_status():
     st_image.fill(GRAY)
     st_image.blit(text, (0, 5))
 
+    # if state.round == 3:
+    #     text = INFO_FONT.render('NEW GAME', True, WHITE)
+    #     st_image.blit(text, (400, 5))
+
+
+# ---------------------------------------------------------------------------
+def new_game():
+    """Display button to start a new game."""
+
+    text = INFO_FONT.render('NEW GAME', True, WHITE)
+    screen.blit(text, (400, (CELL_SIZE * 7) + 5))
+    pygame.display.update()
+
 
 # ---------------------------------------------------------------------------
 def show_click():
@@ -184,7 +197,7 @@ def get_xy(xy):
 
 
 # ---------------------------------------------------------------------------
-def paint_intro():
+def show_intro():
     """Paint the intro text screen."""
 
     intro = (

@@ -75,7 +75,7 @@ while True:
 
             # End of a round
             case pygame.USEREVENT if state.state == state.ST_DONE:
-                if state.round < 3: #10:
+                if state.round < 10:
                     delay_count -= 1
                     if delay_count <= 0:
                         state.round += 1

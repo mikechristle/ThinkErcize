@@ -129,10 +129,6 @@ def update_status():
     st_image.fill(GRAY)
     st_image.blit(text, (0, 5))
 
-    # if state.round == 3:
-    #     text = INFO_FONT.render('NEW GAME', True, WHITE)
-    #     st_image.blit(text, (400, 5))
-
 
 # ---------------------------------------------------------------------------
 def new_game():

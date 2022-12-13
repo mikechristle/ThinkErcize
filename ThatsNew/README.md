@@ -9,5 +9,6 @@ Good luck.
 
 ### Installation
 Download all the files to a directory on your computer.
+Don't forget the Images directory.
 
 Type: python thats_new.py

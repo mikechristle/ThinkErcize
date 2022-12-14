@@ -14,4 +14,6 @@ You must determine at which point the laser beam will exit the grid.
 ### That's New
 A game to improve your short term memory.
 Can you remember which objects you have seen before.
-Click on a new object.
+
+### Maze Spinner
+Improve your spacial orientation skills by solving a maze while the maze rotates.

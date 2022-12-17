@@ -17,3 +17,7 @@ Can you remember which objects you have seen before.
 
 ### Maze Spinner
 Improve your spacial orientation skills by solving a maze while the maze rotates.
+
+### Origami
+This game is about placing symbols on a piece of very thin paper, 
+then folding the paper so that all the symbols can be seen.

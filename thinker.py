@@ -1,75 +1,93 @@
+#!/usr/bin/python
 # ---------------------------------------------------------------------------
 # Thinker
 # Game to exercise your thinker
 # Mike Christle 2022
 # ---------------------------------------------------------------------------
 
-import sys
 import os
-import pygame
+import tkinter as tk
 
-IMAGE_WIDTH = 400
-IMAGE_HEIGHT = 400
-LINE_SEPERATION = 60
+from subprocess import Popen
 
-pygame.init()
-screen = pygame.display.set_mode((IMAGE_WIDTH, IMAGE_HEIGHT))
-pygame.display.set_caption('Thinker Exercises   V1.0')
+BLUE = '#0000FF'
+BLACK = '#000000'
+FONT = ("Helvetica", 24)
 
-BG_COLOR = 107, 142, 35
-TEXT_COLOR = (255, 255, 255)
-NAME_FONT = pygame.font.SysFont('Arial', 48)
 GAME_NAMES = (
-    'Laser Path',
-    'Maze Spinner',
-    'Origami',
-    'That\' New',
-    'Train of Thought',
+    ('Laser Path', 'lp'),
+    ('Maze Spinner', 'ms'),
+    ('Origami', 'or'),
+    ('That\'s New', 'tn'),
+    ('Train of Thought', 'tt'),
+    ('Memory Patterns', 'mp'),
 )
 
-# Paint the game titles
-screen.fill(BG_COLOR)
-y = LINE_SEPERATION // 2
-for line in GAME_NAMES:
-    text = NAME_FONT.render(line, True, TEXT_COLOR)
-    rect = text.get_rect()
-    rect.center = (IMAGE_WIDTH // 2, y)
-    screen.blit(text, rect)
-    y += LINE_SEPERATION
 
-pygame.display.update()
+# ---------------------------------------------------------------------------
+def run(path, command):
+    """Run a game program."""
 
-while True:
+    os.chdir(path)
+    Popen(command)
+    os.chdir('..')
 
-    # Get all pygame events
-    for event in pygame.event.get():
-        match event.type:
 
-            # Exit if window is closed
-            case pygame.QUIT:
-                sys.exit()
+# ---------------------------------------------------------------------------
+def handle_click(event):
+    """Handle a user click event."""
 
-            # Player has clicked on a game title
-            case pygame.MOUSEBUTTONDOWN:
-                xy = event.pos
-                match xy[1] // LINE_SEPERATION:
-                    case 0:
-                        os.chdir('LaserPath')
-                        os.system('python laser_path.py')
-                        os.chdir('..')
-                    case 1:
-                        os.chdir('MazeSpinner')
-                        os.system('python maze_spinner.py')
-                        os.chdir('..')
-                    case 2:
-                        os.chdir('Origami')
-                        os.system('python origami.py')
-                        os.chdir('..')
-                    case 3:
-                        os.chdir('ThatsNew')
-                        os.system('python thats_new.py')
-                        os.chdir('..')
-                    case 4:
-                        os.chdir(r'TrainOfThought')
-                        os.system(r'python train_of_thought.py')
-                        os.chdir('..')
+    match str(event.widget):
+        case '.lp': run('LaserPath', 'python laser_path.py')
+        case '.ms': run('MazeSpinner', 'python maze_spinner.py')
+        case '.or': run('Origami', 'python origami.py')
+        case '.tn': run('ThatsNew', 'python thats_new.py')
+        case '.tt': run('TrainOfThought', 'python train_of_thought.py')
+        case '.mp': run('MemoryPatterns', 'python memory_patterns.py')
+
+
+# ---------------------------------------------------------------------------
+def enter(event):
+    """Change text color when mouse hovers over label."""
+
+    event.widget['fg'] = BLUE
+
+
+# ---------------------------------------------------------------------------
+def leave(event):
+    """Restore text color when mouse leaves label."""
+
+    event.widget['fg'] = BLACK
+
+
+# ---------------------------------------------------------------------------
+def main():
+    """Main program."""
+
+    # Setup the window
+    window = tk.Tk()
+    window.title('Thinker Exercises')
+    window.geometry('300x300+50+50')
+    window.resizable(False, False)
+
+    # Add a label for each game
+    for name in GAME_NAMES:
+        lbl = tk.Label(
+            window,
+            text=name[0],
+            font=FONT,
+            fg=BLACK,
+            name=name[1],
+        )
+        lbl.pack()
+        lbl.bind("<Button-1>", handle_click)
+        lbl.bind('<Enter>', enter)
+        lbl.bind('<Leave>', leave)
+
+    # Enter tkinter event loop
+    window.mainloop()
+
+
+# ---------------------------------------------------------------------------
+if __name__ == "__main__":
+    main()

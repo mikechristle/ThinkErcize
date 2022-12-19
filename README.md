@@ -21,3 +21,6 @@ Improve your spacial orientation skills by solving a maze while the maze rotates
 ### Origami
 This game is about placing symbols on a piece of very thin paper, 
 then folding the paper so that all the symbols can be seen.
+
+### Memory Patterns
+The purpose of this game is to exercise your ability to remember a visual pattern.

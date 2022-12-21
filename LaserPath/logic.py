@@ -4,20 +4,20 @@
 # ---------------------------------------------------------------------------
 
 import random
-import state
+import state as st
 
 from paint import laser_path, laser_path_append
 from random import randrange
 
-MIRRORS = (state.MIRROR1, state.MIRROR2)
+MIRRORS = (st.MIRROR1, st.MIRROR2)
 LASER_LOCS = (
-    (0, 1, state.LASER_E), (0, 2, state.LASER_E), (0, 3, state.LASER_E),
-    (0, 4, state.LASER_E), (0, 5, state.LASER_E), (1, 0, state.LASER_S),
-    (2, 0, state.LASER_S), (3, 0, state.LASER_S), (4, 0, state.LASER_S),
-    (5, 0, state.LASER_S), (6, 1, state.LASER_W), (6, 2, state.LASER_W),
-    (6, 3, state.LASER_W), (6, 4, state.LASER_W), (6, 5, state.LASER_W),
-    (1, 6, state.LASER_N), (2, 6, state.LASER_N), (3, 6, state.LASER_N),
-    (4, 6, state.LASER_N), (5, 6, state.LASER_N)
+    (0, 1, st.LASER_E), (0, 2, st.LASER_E), (0, 3, st.LASER_E),
+    (0, 4, st.LASER_E), (0, 5, st.LASER_E), (1, 0, st.LASER_S),
+    (2, 0, st.LASER_S), (3, 0, st.LASER_S), (4, 0, st.LASER_S),
+    (5, 0, st.LASER_S), (6, 1, st.LASER_W), (6, 2, st.LASER_W),
+    (6, 3, st.LASER_W), (6, 4, st.LASER_W), (6, 5, st.LASER_W),
+    (1, 6, st.LASER_N), (2, 6, st.LASER_N), (3, 6, st.LASER_N),
+    (4, 6, st.LASER_N), (5, 6, st.LASER_N)
 )
 
 exit_x = 0
@@ -28,9 +28,9 @@ exit_y = 0
 def start_game():
     """Start of a game of ten rounds."""
 
-    state.mirrors = 4
-    state.round = 1
-    state.score = 0
+    st.mirrors = 4
+    st.cycle = 1
+    st.score = 0
 
 
 # ---------------------------------------------------------------------------
@@ -51,14 +51,14 @@ def set_laser():
         x, y, d = random.choice(LASER_LOCS)
 
         # Trace the path from this location
-        state.grid[y][x] = d
+        st.grid[y][x] = d
         count = get_path(x, y, d)
 
         # Laser beam must hit at least one mirror
         if count > 0:
             return
         else:
-            state.grid[y][x] = state.EMPTY
+            st.grid[y][x] = st.EMPTY
 
 
 # ---------------------------------------------------------------------------
@@ -80,43 +80,43 @@ def get_path(x, y, d):
         laser_path_append(x, y)
 
         # Count how many mirrors are hit
-        cell = state.grid[y][x]
-        if cell == state.MIRROR1 or cell == state.MIRROR2:
+        cell = st.grid[y][x]
+        if cell == st.MIRROR1 or cell == st.MIRROR2:
             mirror_count += 1
 
         # Move location to the next cell
         match [d, cell]:
-            case [state.LASER_N, state.MIRROR1]:
+            case [st.LASER_N, st.MIRROR1]:
                 x += 1
-                d = state.LASER_E
-            case [state.LASER_S, state.MIRROR1]:
+                d = st.LASER_E
+            case [st.LASER_S, st.MIRROR1]:
                 x -= 1
-                d = state.LASER_W
-            case [state.LASER_E, state.MIRROR1]:
+                d = st.LASER_W
+            case [st.LASER_E, st.MIRROR1]:
                 y -= 1
-                d = state.LASER_N
-            case [state.LASER_W, state.MIRROR1]:
+                d = st.LASER_N
+            case [st.LASER_W, st.MIRROR1]:
                 y += 1
-                d = state.LASER_S
-            case [state.LASER_N, state.MIRROR2]:
+                d = st.LASER_S
+            case [st.LASER_N, st.MIRROR2]:
                 x -= 1
-                d = state.LASER_W
-            case [state.LASER_S, state.MIRROR2]:
+                d = st.LASER_W
+            case [st.LASER_S, st.MIRROR2]:
                 x += 1
-                d = state.LASER_E
-            case [state.LASER_E, state.MIRROR2]:
+                d = st.LASER_E
+            case [st.LASER_E, st.MIRROR2]:
                 y += 1
-                d = state.LASER_S
-            case [state.LASER_W, state.MIRROR2]:
+                d = st.LASER_S
+            case [st.LASER_W, st.MIRROR2]:
                 y -= 1
-                d = state.LASER_N
-            case [state.LASER_N, _]:
+                d = st.LASER_N
+            case [st.LASER_N, _]:
                 y -= 1
-            case [state.LASER_S, _]:
+            case [st.LASER_S, _]:
                 y += 1
-            case [state.LASER_E, _]:
+            case [st.LASER_E, _]:
                 x += 1
-            case [state.LASER_W, _]:
+            case [st.LASER_W, _]:
                 x -= 1
 
         # If laser beam exits playing area,
@@ -133,17 +133,17 @@ def set_mirrors():
     """Randomly position mirrors."""
 
     # Clear all mirrors and laser cannons from previous round
-    for line in state.grid:
+    for line in st.grid:
         for x in range(7):
-            line[x] = state.EMPTY
+            line[x] = st.EMPTY
 
     # Loop until enough mirrors are places on grid
-    count = state.mirrors
+    count = st.mirrors
     while count > 0:
         x = randrange(1, 6)
         y = randrange(1, 6)
-        if state.grid[y][x] == state.EMPTY:
-            state.grid[y][x] = random.choice(MIRRORS)
+        if st.grid[y][x] == st.EMPTY:
+            st.grid[y][x] = random.choice(MIRRORS)
             count -= 1
 
 
@@ -154,14 +154,14 @@ def check_click(x, y):
     if ((x == 0 or x == 6) and (0 < y < 6)) or \
        ((y == 0 or y == 6) and (0 < x < 6)):
 
-        state.click_x = x
-        state.click_y = y
+        st.click_x = x
+        st.click_y = y
 
         if x == exit_x and y == exit_y:
-            state.score += state.mirrors
-            state.mirrors += 1
-        elif state.mirrors > 4:
-            state.mirrors -= 1
+            st.score += st.mirrors
+            st.mirrors += 1
+        elif st.mirrors > 4:
+            st.mirrors -= 1
         return True
     else:
         return False

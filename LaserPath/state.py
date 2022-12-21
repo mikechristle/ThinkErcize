@@ -26,6 +26,6 @@ LASER_W = 6
 grid = [[EMPTY for _ in range(7)] for _ in range(7)]
 score = 0
 mirrors = 4
-round = 0
+cycle = 0
 click_x = 0
 click_y = 0

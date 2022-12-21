@@ -4,7 +4,7 @@
 # ---------------------------------------------------------------------------
 
 import pygame
-import state
+import state as st
 
 from time import sleep
 
@@ -53,18 +53,18 @@ def paint():
     screen.blit(bg_image, (0, 0))
     screen.blit(st_image, (0, (CELL_SIZE * 7) + 1))
 
-    match state.state:
-        case state.ST_COUNT3:
+    match st.state:
+        case st.ST_COUNT3:
             show_count('3')
-        case state.ST_COUNT2:
+        case st.ST_COUNT2:
             show_count('2')
-        case state.ST_COUNT1:
+        case st.ST_COUNT1:
             show_count('1')
-        case state.ST_SHOW:
+        case st.ST_SHOW:
             show_mirrors()
-        case state.ST_WAIT:
+        case st.ST_WAIT:
             show_laser()
-        case state.ST_FIRE:
+        case st.ST_FIRE:
             fire_laser()
 
     pygame.display.flip()
@@ -77,10 +77,10 @@ def show_laser():
     for y in range(7):
         for x in range(7):
 
-            match state.grid[y][x]:
-                case state.EMPTY:
+            match st.grid[y][x]:
+                case st.EMPTY:
                     continue
-                case state.LASER_N:
+                case st.LASER_N:
                     x0 = (x * CELL_SIZE) + 4
                     y0 = (y * CELL_SIZE) + CELL_SIZE
                     x1 = (x * CELL_SIZE) + CELL_SIZE - 4
@@ -89,7 +89,7 @@ def show_laser():
                     y2 = (y * CELL_SIZE) + 4
                     pts = (x0, y0), (x1, y1), (x2, y2)
                     pygame.draw.polygon(screen, RED, pts)
-                case state.LASER_S:
+                case st.LASER_S:
                     x0 = (x * CELL_SIZE) + 4
                     y0 = (y * CELL_SIZE)
                     x1 = (x * CELL_SIZE) + CELL_SIZE - 4
@@ -98,7 +98,7 @@ def show_laser():
                     y2 = (y * CELL_SIZE) + CELL_SIZE - 4
                     pts = (x0, y0), (x1, y1), (x2, y2)
                     pygame.draw.polygon(screen, RED, pts)
-                case state.LASER_E:
+                case st.LASER_E:
                     x0 = (x * CELL_SIZE)
                     y0 = (y * CELL_SIZE) + 4
                     x1 = x0
@@ -107,7 +107,7 @@ def show_laser():
                     y2 = (y * CELL_SIZE) + HALF_CELL_SIZE
                     pts = (x0, y0), (x1, y1), (x2, y2)
                     pygame.draw.polygon(screen, RED, pts)
-                case state.LASER_W:
+                case st.LASER_W:
                     x0 = (x * CELL_SIZE) + CELL_SIZE
                     y0 = (y * CELL_SIZE) + 4
                     x1 = x0
@@ -122,9 +122,9 @@ def show_laser():
 def update_status():
     """Update the contents of the status bar."""
 
-    text = f'   Score {state.score}   '\
-           f'Mirrors {state.mirrors}   '\
-           f'Round {state.round}'
+    text = f'   Score {st.score}   '\
+           f'Mirrors {st.mirrors}   '\
+           f'Round {st.cycle}'
     text = INFO_FONT.render(text, True, WHITE)
     st_image.fill(GRAY)
     st_image.blit(text, (0, 5))
@@ -144,8 +144,8 @@ def show_click():
     """Highlight the square that the player selected."""
 
     w = CELL_SIZE - 2
-    x0 = (state.click_x * CELL_SIZE) + 1
-    y0 = (state.click_y * CELL_SIZE) + 1
+    x0 = (st.click_x * CELL_SIZE) + 1
+    y0 = (st.click_y * CELL_SIZE) + 1
     pygame.draw.rect(screen, DARK_GRAY, (x0, y0, w, w))
 
 
@@ -156,16 +156,16 @@ def show_mirrors():
     for y in range(7):
         for x in range(7):
 
-            match state.grid[y][x]:
-                case state.EMPTY:
+            match st.grid[y][x]:
+                case st.EMPTY:
                     continue
-                case state.MIRROR2:
+                case st.MIRROR2:
                     x0 = (x * CELL_SIZE) + 10
                     y0 = (y * CELL_SIZE) + 10
                     x1 = x0 + CELL_SIZE - 20
                     y1 = y0 + CELL_SIZE - 20
                     pygame.draw.line(screen, WHITE, (x0, y0), (x1, y1), width=7)
-                case state.MIRROR1:
+                case st.MIRROR1:
                     x0 = (x * CELL_SIZE) + CELL_SIZE - 10
                     y0 = (y * CELL_SIZE) + 10
                     x1 = x0 - CELL_SIZE + 20
@@ -231,6 +231,7 @@ def show_intro():
     screen.blit(bg_image, (0, 0))
     screen.blit(st_image, (0, CELL_SIZE * 7))
     pygame.display.update()
+    init_background()
 
 
 # ---------------------------------------------------------------------------

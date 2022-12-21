@@ -5,13 +5,13 @@
 # ---------------------------------------------------------------------------
 
 import pygame
-import state
+import state as st
 from math import sqrt
 
 CELL_SIZE = 36
 BALL_SIZE = CELL_SIZE - 6
 
-IMAGE_SIZE = (state.MAZE_SIZE + 2) * CELL_SIZE
+IMAGE_SIZE = (st.MAZE_SIZE + 2) * CELL_SIZE
 SCREEN_SIZE = int(sqrt(IMAGE_SIZE * IMAGE_SIZE * 2))
 IMAGE_CENTER = SCREEN_SIZE // 2, SCREEN_SIZE // 2
 
@@ -36,7 +36,7 @@ X2 = CELL_SIZE // 2
 X3 = CELL_SIZE
 Y1 = CELL_SIZE * 3
 Y2 = Y1 + CELL_SIZE
-Y3 = (state.MAZE_SIZE - 1) * CELL_SIZE
+Y3 = (st.MAZE_SIZE - 1) * CELL_SIZE
 
 
 # ---------------------------------------------------------------------------
@@ -45,12 +45,12 @@ def paint():
 
     screen.fill(WHITE)
 
-    x = ((state.ball_x + 1) * CELL_SIZE) + 3
-    y = ((state.ball_y + 1) * CELL_SIZE) + 3
+    x = ((st.ball_x + 1) * CELL_SIZE) + 3
+    y = ((st.ball_y + 1) * CELL_SIZE) + 3
     ball_rect = pygame.Rect(x, y, BALL_SIZE, BALL_SIZE)
     pygame.draw.ellipse(maze_image, RED, ball_rect)
 
-    rotated_image = pygame.transform.rotate(maze_image, state.rotation_angle)
+    rotated_image = pygame.transform.rotate(maze_image, st.rotation_angle)
     img_rect = rotated_image.get_rect()
     img_rect.center = IMAGE_CENTER
     screen.blit(rotated_image, img_rect)
@@ -68,9 +68,9 @@ def init_maze_image():
     maze_image.fill(WHITE)
 
     # For each cell in maze
-    for y in range(state.MAZE_SIZE):
-        for x in range(state.MAZE_SIZE):
-            cell = state.maze[y][x]
+    for y in range(st.MAZE_SIZE):
+        for x in range(st.MAZE_SIZE):
+            cell = st.maze[y][x]
 
             # Coordinates of upper left corner
             x0 = (x + 1) * CELL_SIZE
@@ -88,18 +88,18 @@ def init_maze_image():
                 pygame.draw.line(maze_image, BLACK, p1, p2, width=3)
 
     # Draw walls on right and bottom sides of maze
-    x0 = (state.MAZE_SIZE + 1) * CELL_SIZE
+    x0 = (st.MAZE_SIZE + 1) * CELL_SIZE
     p1 = x0, x0
     p2 = CELL_SIZE, x0
     pygame.draw.line(maze_image, BLACK, p1, p2, width=3)
     p2 = x0, CELL_SIZE
     pygame.draw.line(maze_image, BLACK, p1, p2, width=3)
     draw_arrow(0)
-    draw_arrow((state.MAZE_SIZE + 1) * CELL_SIZE)
+    draw_arrow((st.MAZE_SIZE + 1) * CELL_SIZE)
 
     # Draw a blue ball to mark the exit
-    x = (state.MAZE_SIZE * CELL_SIZE) + 3
-    y = (state.MAZE_SIZE * CELL_SIZE) + 3
+    x = (st.MAZE_SIZE * CELL_SIZE) + 3
+    y = (st.MAZE_SIZE * CELL_SIZE) + 3
     ball_rect = pygame.Rect(x, y, BALL_SIZE, BALL_SIZE)
     pygame.draw.ellipse(maze_image, BLUE, ball_rect)
 
@@ -121,8 +121,8 @@ def draw_arrow(offset):
 def paint_status():
     """Paint the status bar."""
 
-    if not state.game_active:
-        text = f'Time {state.elapsed_time:.2f} Seconds'\
+    if not st.game_active:
+        text = f'Time {st.elapsed_time:.2f} Seconds'\
                '       Press space bar to start'
         text = INFO_FONT.render(text, True, BLUE)
         screen.blit(text, (15, SCREEN_SIZE - 50))

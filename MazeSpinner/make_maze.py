@@ -4,7 +4,7 @@
 # ---------------------------------------------------------------------------
 
 import random
-import state
+import state as st
 
 
 # ---------------------------------------------------------------------------
@@ -29,19 +29,19 @@ def make_maze():
     global last_x, last_y
 
     # Reset the maze to initial state
-    for line in state.maze:
+    for line in st.maze:
         for cell in line:
             cell.clear()
 
-    cnt_y = state.MAZE_SIZE
-    cnt_x = state.MAZE_SIZE
+    cnt_y = st.MAZE_SIZE
+    cnt_x = st.MAZE_SIZE
     last_x = cnt_x - 1
     last_y = cnt_y - 1
 
     # Pick a random cell to start with
     first_x = random.randrange(0, cnt_x)
     first_y = random.randrange(0, cnt_y)
-    state.maze[first_y][first_x].val = ST_IN_MAZE
+    st.maze[first_y][first_x].val = ST_IN_MAZE
     border_cells.extend(get_neighbors(first_x, first_y, ST_IDLE, ST_NEIGHBOR))
 
     while True:
@@ -80,28 +80,28 @@ def get_neighbors(x, y, old_state, new_state):
 
     # Check the left cell
     if x > 0:
-        cell = state.maze[y][x - 1]
+        cell = st.maze[y][x - 1]
         if cell.val == old_state:
             neighbors.append(cell)
             cell.val = new_state
 
     # Check the top cell
     if y > 0:
-        cell = state.maze[y - 1][x]
+        cell = st.maze[y - 1][x]
         if cell.val == old_state:
             neighbors.append(cell)
             cell.val = new_state
 
     # Check the right cell
     if x < last_x:
-        cell = state.maze[y][x + 1]
+        cell = st.maze[y][x + 1]
         if cell.val == old_state:
             neighbors.append(cell)
             cell.val = new_state
 
     # Check the bottom cell
     if y < last_y:
-        cell = state.maze[y + 1][x]
+        cell = st.maze[y + 1][x]
         if cell.val == old_state:
             neighbors.append(cell)
             cell.val = new_state
@@ -141,7 +141,7 @@ def remove_wall(min_x, min_y, max_x, max_y):
         # Pick a random cell
         x = random.randrange(min_x, max_x)
         y = random.randrange(min_y, max_y)
-        cell = state.maze[y][x]
+        cell = st.maze[y][x]
 
         # Pick a random direction
         match random.randrange(4):
@@ -149,23 +149,23 @@ def remove_wall(min_x, min_y, max_x, max_y):
             # If cell has a right wall, remove it
             case 0 if not cell.rit:
                 cell.rit = True
-                state.maze[y][x + 1].lft = True
+                st.maze[y][x + 1].lft = True
                 break
 
             # If cell has a left wall, remove it
             case 1 if not cell.lft:
                 cell.lft = True
-                state.maze[y][x - 1].rit = True
+                st.maze[y][x - 1].rit = True
                 break
 
             # If cell has a top wall, remove it
             case 2 if not cell.top:
                 cell.top = True
-                state.maze[y - 1][x].bot = True
+                st.maze[y - 1][x].bot = True
                 break
 
             # If cell has a bottom wall, remove it
             case 3 if not cell.bot:
                 cell.bot = True
-                state.maze[y + 1][x].top = True
+                st.maze[y + 1][x].top = True
                 break

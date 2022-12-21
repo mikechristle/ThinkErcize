@@ -20,20 +20,20 @@
 # v = Down Vertical Track
 # ---------------------------------------------------------------------------
 
-import state
-import random
+import state as st
+from random import choice
 
 
 # ---------------------------------------------------------------------------
 def get_route():
     """Return a random route from the specified difficultly level."""
 
-    match state.difficulty_level:
-        case 4: return random.choice((route40, route41, route42, route43))
-        case 5: return random.choice((route50, route51, route52, route53))
-        case 6: return random.choice((route60, route61, route62, route63))
-        case 7: return random.choice((route70, route71, route72, route73))
-        case 8: return random.choice((route80, route81, route82, route83))
+    match st.difficulty_level:
+        case 4: return choice((route40, route41, route42, route43))
+        case 5: return choice((route50, route51, route52, route53))
+        case 6: return choice((route60, route61, route62, route63))
+        case 7: return choice((route70, route71, route72, route73))
+        case 8: return choice((route80, route81, route82, route83))
 
 
 # ---------------------------------------------------------------------------

@@ -4,7 +4,7 @@
 # Mike Christle 2022
 # ---------------------------------------------------------------------------
 
-import state
+import state as st
 import pygame
 import images
 
@@ -12,8 +12,8 @@ from enum_types import DirT, FuncT
 
 CELL_SIZE = 36
 
-IMAGE_WIDTH = state.GRID_WIDTH * CELL_SIZE
-IMAGE_HEIGHT = state.GRID_HEIGHT * CELL_SIZE
+IMAGE_WIDTH = st.GRID_WIDTH * CELL_SIZE
+IMAGE_HEIGHT = st.GRID_HEIGHT * CELL_SIZE
 
 # Initialize pygame and setup the window
 pygame.init()
@@ -50,11 +50,11 @@ def paint():
     screen.blit(bg_image, (0, 0))
 
     # If game is done, paint the button bar
-    if not state.game_active:
+    if not st.game_active:
         screen.blit(btn_image, (0, IMAGE_HEIGHT))
 
     # Paint switches
-    for x, y, dir_f, dir_t, flag in state.switches:
+    for x, y, dir_f, dir_t, flag in st.switches:
         match [dir_f, dir_t, flag]:
             case [DirT.RIGHT | DirT.LEFT, _, False]:
                 img = images.SWITCH_H
@@ -80,10 +80,10 @@ def paint():
         screen.blit(img, (x * CELL_SIZE, y * CELL_SIZE))
 
     # Paint Trains
-    for x, y, color in state.trains:
-        match state.grid[y][x]:
+    for x, y, color in st.trains:
+        match st.grid[y][x]:
             case [FuncT.SWITCH, idx]:
-                _, _, d0, d1, flag = state.switches[idx]
+                _, _, d0, d1, flag = st.switches[idx]
                 direction = d1 if flag else d0
                 img = images.TRAIN_IMGS[color][direction.value]
             case [FuncT.TURN | FuncT.BARN, direction, _]:
@@ -137,7 +137,7 @@ def paint_btns():
 
     # Paint difficulty levels
     for idx in range(4, 9):
-        color = BLACK if idx != state.difficulty_level else WHITE
+        color = BLACK if idx != st.difficulty_level else WHITE
         text = BUTTON_FONT.render(str(idx), True, color)
         rect = text.get_rect()
         rect.top = 0
@@ -148,12 +148,12 @@ def paint_btns():
     text = BUTTON_FONT.render('START', True, WHITE)
     rect = text.get_rect()
     rect.top = 0
-    rect.left = (state.GRID_WIDTH - 3) * CELL_SIZE
+    rect.left = (st.GRID_WIDTH - 3) * CELL_SIZE
     btn_image.blit(text, rect)
 
     # Paint score
-    if state.total_trains > 0:
-        text = f'{state.game_score}/{state.total_trains}'
+    if st.total_trains > 0:
+        text = f'{st.game_score}/{st.total_trains}'
         text = BUTTON_FONT.render(text, True, WHITE)
         rect = text.get_rect()
         rect.top = 0
@@ -172,9 +172,9 @@ def init_tracks():
     bg_image.fill(BG_COLOR)
 
     # For each grid cell
-    for y in range(state.GRID_HEIGHT):
-        for x in range(state.GRID_WIDTH):
-            cell = state.grid[y][x]
+    for y in range(st.GRID_HEIGHT):
+        for x in range(st.GRID_WIDTH):
+            cell = st.grid[y][x]
 
             # Get an image for each cell
             match cell:

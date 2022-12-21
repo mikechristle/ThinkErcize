@@ -20,14 +20,14 @@
 # v = Down Vertical Track
 # ---------------------------------------------------------------------------
 
-import random
-import state
+import state as st
 
+from random import shuffle, choice
 from routes import get_route
 from enum_types import FuncT, DirT, FlipT, TrackT
 
-GRID_WIDTH_MAX = state.GRID_WIDTH - 1
-GRID_HEIGHT_MAX = state.GRID_HEIGHT - 1
+GRID_WIDTH_MAX = st.GRID_WIDTH - 1
+GRID_HEIGHT_MAX = st.GRID_HEIGHT - 1
 
 barn_colors = []
 barn_color = 0
@@ -41,19 +41,19 @@ def make_route():
     global text, barn_colors, barn_color
 
     # Clear the previous route
-    state.switches.clear()
-    for y in range(state.GRID_HEIGHT):
-        for x in range(state.GRID_WIDTH):
-            state.grid[y][x] = None
+    st.switches.clear()
+    for y in range(st.GRID_HEIGHT):
+        for x in range(st.GRID_WIDTH):
+            st.grid[y][x] = None
 
     # Setup barn colors based on difficulty level.
-    barn_colors = [n for n in range(state.difficulty_level)]
-    random.shuffle(barn_colors)
+    barn_colors = [n for n in range(st.difficulty_level)]
+    shuffle(barn_colors)
     barn_color = 0
 
     # To increase variety the route can be flipped vertically, 
     # horizontally, or both.
-    flip = random.choice((FlipT.NONE, FlipT.VERT, FlipT.HORZ, FlipT.BOTH))
+    flip = choice((FlipT.NONE, FlipT.VERT, FlipT.HORZ, FlipT.BOTH))
 
     # Get a route in text form.
     text = get_route()
@@ -68,40 +68,40 @@ def process_grid(flip):
 
     # For each character in the text route,
     # update the corresponding location in the grid.
-    for y in range(state.GRID_HEIGHT):
-        for x in range(state.GRID_WIDTH):
+    for y in range(st.GRID_HEIGHT):
+        for x in range(st.GRID_WIDTH):
             char = text[y][x]
             match char:
                 case '>':
-                    state.grid[y][x] = track(char, flip)
+                    st.grid[y][x] = track(char, flip)
                 case '<':
-                    state.grid[y][x] = track(char, flip)
+                    st.grid[y][x] = track(char, flip)
                 case '^':
-                    state.grid[y][x] = track(char, flip)
+                    st.grid[y][x] = track(char, flip)
                 case 'V':
-                    state.grid[y][x] = track(char, flip)
+                    st.grid[y][x] = track(char, flip)
                 case '1':
-                    state.grid[y][x] = turn(char, flip)
+                    st.grid[y][x] = turn(char, flip)
                 case '2':
-                    state.grid[y][x] = turn(char, flip)
+                    st.grid[y][x] = turn(char, flip)
                 case '3':
-                    state.grid[y][x] = turn(char, flip)
+                    st.grid[y][x] = turn(char, flip)
                 case '4':
-                    state.grid[y][x] = turn(char, flip)
+                    st.grid[y][x] = turn(char, flip)
                 case '5':
-                    state.grid[y][x] = turn(char, flip)
+                    st.grid[y][x] = turn(char, flip)
                 case '6':
-                    state.grid[y][x] = turn(char, flip)
+                    st.grid[y][x] = turn(char, flip)
                 case '7':
-                    state.grid[y][x] = turn(char, flip)
+                    st.grid[y][x] = turn(char, flip)
                 case '8':
-                    state.grid[y][x] = turn(char, flip)
+                    st.grid[y][x] = turn(char, flip)
                 case 'T':
-                    state.grid[y][x] = tunnel(x, y, flip)
+                    st.grid[y][x] = tunnel(x, y, flip)
                 case 'B':
-                    state.grid[y][x] = barn(x, y, flip)
+                    st.grid[y][x] = barn(x, y, flip)
                 case 'S':
-                    state.grid[y][x] = switch(x, y, flip)
+                    st.grid[y][x] = switch(x, y, flip)
                 case '.' | '\n':
                     pass
                 case _:
@@ -109,12 +109,12 @@ def process_grid(flip):
 
     # For a horizontal flip, reverse the elements of each row
     if flip == FlipT.HORZ or flip == FlipT.BOTH:
-        for row in state.grid:
+        for row in st.grid:
             row.reverse()
 
     # For a vertical flip, reverse the rows
     if flip == FlipT.VERT or flip == FlipT.BOTH:
-        state.grid.reverse()
+        st.grid.reverse()
 
 
 # ---------------------------------------------------------------------------
@@ -218,8 +218,8 @@ def switch(x, y, flip):
     x, y = flip_xy(x, y, flip)
 
     # Save the state of the switch.
-    state.switches.append([x, y, dir0, dir1, False])
-    return FuncT.SWITCH, len(state.switches) - 1
+    st.switches.append([x, y, dir0, dir1, False])
+    return FuncT.SWITCH, len(st.switches) - 1
 
 
 # ---------------------------------------------------------------------------
@@ -278,7 +278,7 @@ def tunnel(x, y, flip):
     direction = flip_dir(direction, flip)
 
     # Save the location of the tunnel so trains can be added.
-    state.tunnel_x, state.tunnel_y = flip_xy(x, y, flip)
+    st.tunnel_x, st.tunnel_y = flip_xy(x, y, flip)
 
     return FuncT.TUNNEL, direction
 

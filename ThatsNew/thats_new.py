@@ -6,7 +6,7 @@
 
 import sys
 import pygame
-import state
+import state as st
 
 from paint import paint, get_xy, paint_intro
 from logic import init_game, click
@@ -26,12 +26,12 @@ while True:
                 sys.exit()
 
             # Process clicks on images
-            case pygame.MOUSEBUTTONDOWN if state.game_active:
+            case pygame.MOUSEBUTTONDOWN if st.game_active:
                 x, y = get_xy(event.pos)
                 click(x, y)
                 paint()
 
             # Any click starts a new game
-            case pygame.MOUSEBUTTONDOWN if not state.game_active:
+            case pygame.MOUSEBUTTONDOWN if not st.game_active:
                 init_game()
                 paint()

@@ -5,7 +5,7 @@
 # ---------------------------------------------------------------------------
 
 import pygame
-import state
+import state as st
 
 from images import IMAGES
 
@@ -50,10 +50,10 @@ def paint_grid():
 
     for y in range(6):
         for x in range(8):
-            img, bg = state.grid[y][x]
+            img, bg = st.grid[y][x]
 
             # If game is over, paint borders to indicate image status
-            if not state.game_active and img > 0:
+            if not st.game_active and img > 0:
                 color = BG_COLORS[bg]
                 rect = x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE
                 pygame.draw.rect(screen, color, rect)
@@ -69,7 +69,7 @@ def paint_grid():
 def paint_status():
     """Paint the status bar."""
 
-    if not state.game_active:
+    if not st.game_active:
         text = 'Click here to start a new game.'
         text = INFO_FONT.render(text, True, BLUE)
         rect = text.get_rect()

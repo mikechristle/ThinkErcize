@@ -24,3 +24,6 @@ then folding the paper so that all the symbols can be seen.
 
 ### Memory Patterns
 The purpose of this game is to exercise your ability to remember a visual pattern.
+
+### Digit Order
+This game will help you to focus on and remember details.

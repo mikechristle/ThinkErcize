@@ -21,6 +21,7 @@ GAME_NAMES = (
     ('That\'s New', 'tn'),
     ('Train of Thought', 'tt'),
     ('Memory Patterns', 'mp'),
+    ('Digit Order', 'do'),
 )
 
 
@@ -44,6 +45,7 @@ def handle_click(event):
         case '.tn': run('ThatsNew', 'python thats_new.py')
         case '.tt': run('TrainOfThought', 'python train_of_thought.py')
         case '.mp': run('MemoryPatterns', 'python memory_patterns.py')
+        case '.do': run('DigitOrder', 'python digit_order.py')
 
 
 # ---------------------------------------------------------------------------

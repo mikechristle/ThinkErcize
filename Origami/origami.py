@@ -3,10 +3,10 @@
 # Mike Christle 2022
 # ---------------------------------------------------------------------------
 
-import sys
 import pygame
-import state
+import state as st
 
+from sys import exit
 from paint import paint, get_xy, show_intro
 from logic import set_pattern, check_click
 
@@ -24,33 +24,33 @@ while True:
 
             # Exit if window is closed
             case pygame.QUIT:
-                sys.exit()
+                exit()
 
             # Any click starts the game
-            case pygame.MOUSEBUTTONDOWN if state.state == state.ST_IDLE:
-                state.state = state.ST_WAIT
+            case pygame.MOUSEBUTTONDOWN if st.state == st.ST_IDLE:
+                st.state = st.ST_WAIT
                 set_pattern()
                 paint()
 
             # Move the cursor over the image
-            case pygame.MOUSEMOTION if state.state == state.ST_WAIT:
+            case pygame.MOUSEMOTION if st.state == st.ST_WAIT:
                 x, y = get_xy(event.pos)
                 if x >= 0:
-                    state.cursor_x = x
-                    state.cursor_y = y
+                    st.cursor_x = x
+                    st.cursor_y = y
                     paint()
 
             # Player selects a position
-            case pygame.MOUSEBUTTONDOWN if state.state == state.ST_WAIT:
+            case pygame.MOUSEBUTTONDOWN if st.state == st.ST_WAIT:
                 if check_click():
                     paint()
                     delay_count = 10
-                    state.state = state.ST_DONE
+                    st.state = st.ST_DONE
 
             # Delay 5 seconds then start a new game
-            case pygame.USEREVENT if state.state == state.ST_DONE:
+            case pygame.USEREVENT if st.state == st.ST_DONE:
                 delay_count -= 1
                 if delay_count == 0:
-                    state.state = state.ST_WAIT
+                    st.state = st.ST_WAIT
                     set_pattern()
                     paint()

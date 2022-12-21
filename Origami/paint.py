@@ -4,7 +4,7 @@
 # ---------------------------------------------------------------------------
 
 import pygame
-import state
+import state as st
 
 CELL_SIZE = 60
 IMAGE_WIDTH = 9 * CELL_SIZE
@@ -49,16 +49,16 @@ def paint():
 
     # If the mouse pointer is over a blank cell,
     # fill that cell with an card image
-    if state.cursor_x >= 0:
-        cell = state.grid[state.cursor_y][state.cursor_x]
-        if cell == state.IMG_BLANK:
-            img = IMAGES[state.cursor_img]
-            x = (state.cursor_x * CELL_SIZE) + offset_x + 14
-            y = (state.cursor_y * CELL_SIZE) + offset_y + 14
+    if st.cursor_x >= 0:
+        cell = st.grid[st.cursor_y][st.cursor_x]
+        if cell == st.IMG_BLANK:
+            img = IMAGES[st.cursor_img]
+            x = (st.cursor_x * CELL_SIZE) + offset_x + 14
+            y = (st.cursor_y * CELL_SIZE) + offset_y + 14
             screen.blit(img, (x, y))
 
     # Paint the status bar
-    text = f'  Games {state.games}   Score {state.score}'
+    text = f'  Games {st.games}   Score {st.score}'
     text = INFO_FONT.render(text, True, BLACK)
     screen.blit(text, STATUS_LOC)
     pygame.display.update()
@@ -71,17 +71,17 @@ def paint_pattern():
     global offset_x, offset_y
 
     # There is a separate routine for each type of fold
-    match state.flip:
-        case state.FLIP_NONE: paint_none()
-        case state.FLIP_HORZ: paint_horz()
-        case state.FLIP_VERT: paint_vert()
-        case state.FLIP_BOTH: paint_both()
-        case state.FLIP_DIAG: paint_diag()
+    match st.flip:
+        case st.FLIP_NONE: paint_none()
+        case st.FLIP_HORZ: paint_horz()
+        case st.FLIP_VERT: paint_vert()
+        case st.FLIP_BOTH: paint_both()
+        case st.FLIP_DIAG: paint_diag()
 
     # Add the card images
-    for y, line in enumerate(state.grid):
+    for y, line in enumerate(st.grid):
         for x, cell in enumerate(line):
-            if cell > state.IMG_BLANK:
+            if cell > st.IMG_BLANK:
                 img = IMAGES[cell]
                 x0 = offset_x + (x * CELL_SIZE) + 14
                 y0 = offset_y + (y * CELL_SIZE) + 14
@@ -103,12 +103,12 @@ def paint_none():
 
     # Set offsets from upper left corner of image to the
     # upper left cornet of the paper
-    offset_x = (BG_SIZE - (state.paper_w * CELL_SIZE)) // 2
-    offset_y = (BG_SIZE - (state.paper_h * CELL_SIZE)) // 2
+    offset_x = (BG_SIZE - (st.paper_w * CELL_SIZE)) // 2
+    offset_y = (BG_SIZE - (st.paper_h * CELL_SIZE)) // 2
 
     # Draw the border of the paper
     p0 = offset_x, offset_y
-    wh = state.paper_w * CELL_SIZE, state.paper_h * CELL_SIZE
+    wh = st.paper_w * CELL_SIZE, st.paper_h * CELL_SIZE
     pygame.draw.rect(bg_image, BLACK, (p0, wh), width=3)
 
 
@@ -123,19 +123,19 @@ def paint_horz():
 
     # Set offsets from upper left corner of image to the
     # upper left cornet of the paper
-    offset_x = (BG_SIZE - (state.paper_w * 2 * CELL_SIZE)) // 2
-    offset_y = (BG_SIZE - (state.paper_h * CELL_SIZE)) // 2
+    offset_x = (BG_SIZE - (st.paper_w * 2 * CELL_SIZE)) // 2
+    offset_y = (BG_SIZE - (st.paper_h * CELL_SIZE)) // 2
 
     # Draw the border of the paper
     p0 = offset_x, offset_y
-    wh = state.paper_w * 2 * CELL_SIZE, state.paper_h * CELL_SIZE
+    wh = st.paper_w * 2 * CELL_SIZE, st.paper_h * CELL_SIZE
     pygame.draw.rect(bg_image, BLACK, (p0, wh), width=3)
 
     # Draw a line for the fold
-    x0 = offset_x + (state.paper_w * CELL_SIZE)
+    x0 = offset_x + (st.paper_w * CELL_SIZE)
     y0 = offset_y
-    x1 = offset_x + (state.paper_w * CELL_SIZE)
-    y1 = offset_y + (state.paper_h * CELL_SIZE)
+    x1 = offset_x + (st.paper_w * CELL_SIZE)
+    y1 = offset_y + (st.paper_h * CELL_SIZE)
     pygame.draw.line(bg_image, BLACK, (x0, y0), (x1, y1))
 
 
@@ -150,19 +150,19 @@ def paint_vert():
 
     # Set offsets from upper left corner of image to the
     # upper left cornet of the paper
-    offset_x = (BG_SIZE - (state.paper_w * CELL_SIZE)) // 2
-    offset_y = (BG_SIZE - (state.paper_h * 2 * CELL_SIZE)) // 2
+    offset_x = (BG_SIZE - (st.paper_w * CELL_SIZE)) // 2
+    offset_y = (BG_SIZE - (st.paper_h * 2 * CELL_SIZE)) // 2
 
     # Draw the border of the paper
     p0 = offset_x, offset_y
-    wh = state.paper_w * CELL_SIZE, state.paper_h * 2 * CELL_SIZE
+    wh = st.paper_w * CELL_SIZE, st.paper_h * 2 * CELL_SIZE
     pygame.draw.rect(bg_image, BLACK, (p0, wh), width=3)
 
     # Draw a line for the fold
     x0 = offset_x
-    y0 = offset_y + (state.paper_h * CELL_SIZE)
-    x1 = offset_x + (state.paper_w * CELL_SIZE)
-    y1 = offset_y + (state.paper_h * CELL_SIZE)
+    y0 = offset_y + (st.paper_h * CELL_SIZE)
+    x1 = offset_x + (st.paper_w * CELL_SIZE)
+    y1 = offset_y + (st.paper_h * CELL_SIZE)
     pygame.draw.line(bg_image, BLACK, (x0, y0), (x1, y1))
 
 
@@ -177,24 +177,24 @@ def paint_both():
 
     # Set offsets from upper left corner of image to the
     # upper left cornet of the paper
-    offset_x = (BG_SIZE - (state.paper_w * 2 * CELL_SIZE)) // 2
-    offset_y = (BG_SIZE - (state.paper_h * 2 * CELL_SIZE)) // 2
+    offset_x = (BG_SIZE - (st.paper_w * 2 * CELL_SIZE)) // 2
+    offset_y = (BG_SIZE - (st.paper_h * 2 * CELL_SIZE)) // 2
 
     # Draw the border of the paper
     p0 = offset_x, offset_y
-    wh = state.paper_w * 2 * CELL_SIZE, state.paper_h * 2 * CELL_SIZE
+    wh = st.paper_w * 2 * CELL_SIZE, st.paper_h * 2 * CELL_SIZE
     pygame.draw.rect(bg_image, BLACK, (p0, wh), width=3)
 
     # Draw lines for the folds
     x0 = offset_x
-    y0 = offset_y + (state.paper_h * CELL_SIZE)
-    x1 = offset_x + (state.paper_w * 2 * CELL_SIZE)
-    y1 = offset_y + (state.paper_h * CELL_SIZE)
+    y0 = offset_y + (st.paper_h * CELL_SIZE)
+    x1 = offset_x + (st.paper_w * 2 * CELL_SIZE)
+    y1 = offset_y + (st.paper_h * CELL_SIZE)
     pygame.draw.line(bg_image, BLACK, (x0, y0), (x1, y1))
-    x0 = offset_x + (state.paper_w * CELL_SIZE)
+    x0 = offset_x + (st.paper_w * CELL_SIZE)
     y0 = offset_y
-    x1 = offset_x + (state.paper_w * CELL_SIZE)
-    y1 = offset_y + (state.paper_h * 2 * CELL_SIZE)
+    x1 = offset_x + (st.paper_w * CELL_SIZE)
+    y1 = offset_y + (st.paper_h * 2 * CELL_SIZE)
     pygame.draw.line(bg_image, BLACK, (x0, y0), (x1, y1))
 
 
@@ -209,8 +209,8 @@ def paint_diag():
 
     # Set offsets from upper left corner of image to the
     # upper left cornet of the paper
-    w = state.paper_w + 1
-    h = state.paper_h + 1
+    w = st.paper_w + 1
+    h = st.paper_h + 1
     offset_x = (BG_SIZE - (w * CELL_SIZE)) // 2
     offset_y = (BG_SIZE - (h * CELL_SIZE)) // 2
 
@@ -236,17 +236,17 @@ def get_xy(xy):
     y = (xy[1] - offset_y) // CELL_SIZE
 
     # Determine max values depending on the folds
-    max_x = state.paper_w
-    max_y = state.paper_h
-    match state.flip:
-        case state.FLIP_HORZ:
+    max_x = st.paper_w
+    max_y = st.paper_h
+    match st.flip:
+        case st.FLIP_HORZ:
             max_x *= 2
-        case state.FLIP_VERT:
+        case st.FLIP_VERT:
             max_y *= 2
-        case state.FLIP_BOTH:
+        case st.FLIP_BOTH:
             max_x *= 2
             max_y *= 2
-        case state.FLIP_DIAG:
+        case st.FLIP_DIAG:
             if x == y:
                 return -1, -1
             max_x += 1

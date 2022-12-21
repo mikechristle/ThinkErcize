@@ -5,7 +5,7 @@
 
 import sys
 import pygame
-import state
+import state as st
 
 from paint import paint, paint_intro, paint_background, get_xy
 from logic import set_pattern, click
@@ -27,24 +27,24 @@ while True:
                 sys.exit()
 
             # Any click starts the game
-            case pygame.MOUSEBUTTONDOWN if state.state == state.ST_INTRO:
-                state.state = state.ST_SHOW
-                state.round = 0
-                state.level = 0
+            case pygame.MOUSEBUTTONDOWN if st.state == st.ST_INTRO:
+                st.state = st.ST_SHOW
+                st.round = 0
+                st.level = 0
                 delay_count = 5
 
             # Wait for player to click on tiles
-            case pygame.MOUSEBUTTONDOWN if state.state == state.ST_WAIT:
+            case pygame.MOUSEBUTTONDOWN if st.state == st.ST_WAIT:
                 x, y = get_xy(event.pos)
                 click(x, y)
 
             # Delay 5 seconds then start a new game
-            case pygame.USEREVENT if state.state == state.ST_SHOW:
+            case pygame.USEREVENT if st.state == st.ST_SHOW:
                 if delay_count == 0:
-                    state.state = state.ST_WAIT
+                    st.state = st.ST_WAIT
                     delay_count = 10
                     paint()
                 if delay_count == 5:
-                    state.round += 1
+                    st.round += 1
                     set_pattern()
                 delay_count -= 1

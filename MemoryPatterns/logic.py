@@ -4,7 +4,8 @@
 # Mike Christle 2022
 # ---------------------------------------------------------------------------
 
-import state
+import state as st
+
 from random import randrange
 from paint import paint, paint_background
 
@@ -23,10 +24,10 @@ def set_pattern():
     # Clear the grid
     for y in range(7):
         for x in range(7):
-            state.grid[y][x] = state.BLANK
+            st.grid[y][x] = st.BLANK
 
     # Get the stats for the current level
-    width, height, count = state.LEVELS[state.level]
+    width, height, count = st.LEVELS[st.level]
 
     # Randomly fill tiles in the grid
     click_count = count
@@ -34,8 +35,8 @@ def set_pattern():
     while count > 0:
         x = randrange(width)
         y = randrange(height)
-        if state.grid[y][x] == state.BLANK:
-            state.grid[y][x] = state.TILE
+        if st.grid[y][x] == st.BLANK:
+            st.grid[y][x] = st.TILE
             count -= 1
 
     # Update the background image
@@ -54,27 +55,27 @@ def click(x, y):
         return
 
     # If cell is blank, report the error
-    cell = state.grid[y][x]
-    if cell == state.BLANK:
-        cell = state.ERROR
+    cell = st.grid[y][x]
+    if cell == st.BLANK:
+        cell = st.ERROR
         error_count += 1
         click_count -= 1
 
     # If cell is a tile, report success
-    elif cell == state.TILE:
-        cell = state.CLICK
+    elif cell == st.TILE:
+        cell = st.CLICK
         click_count -= 1
 
     # Update display
-    state.grid[y][x] = cell
+    st.grid[y][x] = cell
     paint()
 
     # End of round
     if click_count == 0:
-        state.state = state.ST_SHOW
+        st.state = st.ST_SHOW
         paint()
-        if error_count == 0 and state.level < 8:
-            state.level += 1
-        if state.round == 10:
-            state.state = state.ST_INTRO
+        if error_count == 0 and st.level < 8:
+            st.level += 1
+        if st.round == 10:
+            st.state = st.ST_INTRO
             paint()

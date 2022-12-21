@@ -5,7 +5,7 @@
 # ---------------------------------------------------------------------------
 
 import pygame
-import state
+import state as st
 
 CELL_SIZE = 60
 BG_SIZE = 8 * CELL_SIZE
@@ -55,16 +55,16 @@ def paint_pattern():
     """Paint the cells of the grid."""
 
     # For each cell in the grid
-    width, height, _ = state.LEVELS[state.level]
+    width, height, _ = st.LEVELS[st.level]
     for y in range(7):
         y0 = (y * CELL_SIZE) + offset_y + 4
         for x in range(7):
             x0 = (x * CELL_SIZE) + offset_x + 4
-            cell = state.grid[y][x]
+            cell = st.grid[y][x]
 
             # If cell is not blank, fill with a color
-            if cell != state.BLANK:
-                color = COLORS[state.state][cell]
+            if cell != st.BLANK:
+                color = COLORS[st.state][cell]
                 rect = x0, y0, TILE_SIZE, TILE_SIZE
                 pygame.draw.rect(screen, color, rect)
 
@@ -76,7 +76,7 @@ def paint_background():
     global offset_x, offset_y
 
     # Get the dimensions of the grid
-    width, height, _ = state.LEVELS[state.level]
+    width, height, _ = st.LEVELS[st.level]
 
     # Set the offset from the left edge of screen to
     # left edge of grid
@@ -107,11 +107,11 @@ def paint_background():
 def paint_status():
     """Paint the status bar."""
 
-    if state.state == state.ST_WAIT:
+    if st.state == st.ST_WAIT:
         text = f'  Click the squares that were green'
     else:
-        text = f'  Round {state.round}   Level {state.level + 4}'
-    if state.state == state.ST_INTRO:
+        text = f'  Round {st.round}   Level {st.level + 4}'
+    if st.state == st.ST_INTRO:
         text += '      Click to start new game'
     text = STATUS_FONT.render(text, True, BLACK)
     screen.blit(text, STATUS_LOC)

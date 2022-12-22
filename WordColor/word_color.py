@@ -28,18 +28,21 @@ while True:
             case pygame.QUIT:
                 sys.exit()
 
+            # Pressing the space ber starts a round
             case pygame.KEYDOWN if not st.game_active:
                 if event.key == pygame.K_SPACE:
                     start_round()
                     timeout_counter = 30
                     paint()
 
+            # Right and left arrow keys for player input
             case pygame.KEYDOWN if st.game_active:
                 if event.key == pygame.K_LEFT or \
                    event.key == pygame.K_RIGHT:
                     check(event.key)
                     paint()
 
+            # Thirty second round timer
             case pygame.USEREVENT if st.game_active:
                 timeout_counter -= 1
                 if timeout_counter == 0:

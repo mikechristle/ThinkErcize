@@ -4,9 +4,7 @@
 # ---------------------------------------------------------------------------
 
 import pygame
-# from random import randrange
 import state as st
-
 
 IMAGE_WIDTH = 600
 IMAGE_HEIGHT = 400
@@ -43,33 +41,38 @@ WORDS = ('BLACK', 'BLUE', 'GREEN', 'RED')
 
 # ---------------------------------------------------------------------------
 def paint():
+    """Paint the screen."""
 
     screen.fill(BG_COLOR)
 
+    # Reminders
     text = f'WORD                           COLOR'
     text = INFO_FONT.render(text, True, BLACK)
     rect = text.get_rect()
     rect.center = IMAGE_WIDTH // 2, IMAGE_HEIGHT // 3
     screen.blit(text, rect)
 
+    # Background boxes
     pygame.draw.rect(screen, WHITE, LEFT_BOX)
     pygame.draw.rect(screen, WHITE, RIGHT_BOX)
 
-    left_word = WORDS[st.left_word]
-    left_color = COLORS[st.left_color]
-    right_word = WORDS[st.right_word]
-    right_color = COLORS[st.right_color]
-
-    text = HEADER_FONT.render(left_word, True, left_color)
+    # Paint the left side word
+    word = WORDS[st.left_word]
+    color = COLORS[st.left_color]
+    text = HEADER_FONT.render(word, True, color)
     rect = text.get_rect()
     rect.center = LEFT_CENTER
     screen.blit(text, rect)
 
-    text = HEADER_FONT.render(right_word, True, right_color)
+    # Paint the right side word
+    word = WORDS[st.right_word]
+    color = COLORS[st.right_color]
+    text = HEADER_FONT.render(word, True, color)
     rect = text.get_rect()
     rect.center = RIGHT_CENTER
     screen.blit(text, rect)
 
+    # When the round is over display the score
     if not st.game_active:
         text = f'Round {st.cycle}   Score {st.score} / {st.total}'
         text = INFO_FONT.render(text, True, BLACK)

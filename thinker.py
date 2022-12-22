@@ -22,6 +22,7 @@ GAME_NAMES = (
     ('Train of Thought', 'tt'),
     ('Memory Patterns', 'mp'),
     ('Digit Order', 'do'),
+    ('Word Color', 'wc'),
 )
 
 
@@ -46,6 +47,7 @@ def handle_click(event):
         case '.tt': run('TrainOfThought', 'python train_of_thought.py')
         case '.mp': run('MemoryPatterns', 'python memory_patterns.py')
         case '.do': run('DigitOrder', 'python digit_order.py')
+        case '.wc': run('WordColor', 'python word_color.py')
 
 
 # ---------------------------------------------------------------------------
@@ -69,7 +71,7 @@ def main():
     # Setup the window
     window = tk.Tk()
     window.title('Thinker Exercises')
-    window.geometry('300x300+50+50')
+    window.geometry('300x400+50+50')
     window.resizable(False, False)
 
     # Add a label for each game

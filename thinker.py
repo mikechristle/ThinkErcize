@@ -23,6 +23,7 @@ GAME_NAMES = (
     ('Memory Patterns', 'mp'),
     ('Digit Order', 'do'),
     ('Word Color', 'wc'),
+    ('Tile Match', 'tm'),
 )
 
 
@@ -48,6 +49,7 @@ def handle_click(event):
         case '.mp': run('MemoryPatterns', 'python memory_patterns.py')
         case '.do': run('DigitOrder', 'python digit_order.py')
         case '.wc': run('WordColor', 'python word_color.py')
+        case '.tm': run('TileMatch', 'tile_match.py')
 
 
 # ---------------------------------------------------------------------------

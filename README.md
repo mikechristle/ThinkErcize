@@ -27,3 +27,7 @@ The purpose of this game is to exercise your ability to remember a visual patter
 
 ### Digit Order
 This game will help you to focus on and remember details.
+
+### Tile Match
+The object of this game is to eliminate all the tiles as fast as possible.
+

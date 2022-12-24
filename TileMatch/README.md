@@ -1,7 +1,7 @@
 # Tile Match
 
 ### Instructions
-The object of this game is to eliminate all of the tiles as fast as possible.
+The object of this game is to eliminate all the tiles as fast as possible.
 Tiles have one of three colors, and one of three shaped inlays.
 As each new tile is displayed on the left side, you must place it on the grid next to matching tiles.
 If the new tile is tall then the colors must match.

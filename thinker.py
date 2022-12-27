@@ -75,7 +75,7 @@ def main():
     # Setup the window
     window = tk.Tk()
     window.title('Thinker Exercises')
-    window.geometry('300x400+50+50')
+    window.geometry('300x450+50+50')
     window.resizable(False, False)
 
     # Add a label for each game

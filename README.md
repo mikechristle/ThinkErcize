@@ -35,3 +35,6 @@ The object of this game is to eliminate all the tiles as fast as possible.
 Your job is to find stray dogs and return them to their homes.
 You have a small car, so you can only carry up to three dogs at a time.
 Since you don\'t have all day, you must find the shortest route possible.
+
+### Which Arrow
+The purpose of this game is to determine the direction of the arrow at the center of the 5 arrow pattern.

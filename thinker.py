@@ -25,6 +25,7 @@ GAME_NAMES = (
     ('Word Color', 'wc'),
     ('Tile Match', 'tm'),
     ('Best Route', 'bm'),
+    ('Which Arrow', 'wa'),
 )
 
 
@@ -52,6 +53,7 @@ def handle_click(event):
         case '.wc': run('WordColor', 'python word_color.py')
         case '.tm': run('TileMatch', 'python tile_match.py')
         case '.bm': run('BestRoute', 'python best_route.py')
+        case '.wa': run('WhichArrow', 'python which_arrow.py')
 
 
 # ---------------------------------------------------------------------------
@@ -75,7 +77,7 @@ def main():
     # Setup the window
     window = tk.Tk()
     window.title('Thinker Exercises')
-    window.geometry('300x450+50+50')
+    window.geometry('300x480+50+50')
     window.resizable(False, False)
 
     # Add a label for each game

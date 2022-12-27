@@ -24,6 +24,7 @@ GAME_NAMES = (
     ('Digit Order', 'do'),
     ('Word Color', 'wc'),
     ('Tile Match', 'tm'),
+    ('Best Route', 'bm'),
 )
 
 
@@ -50,6 +51,7 @@ def handle_click(event):
         case '.do': run('DigitOrder', 'python digit_order.py')
         case '.wc': run('WordColor', 'python word_color.py')
         case '.tm': run('TileMatch', 'python tile_match.py')
+        case '.bm': run('BestRoute', 'python best_route.py')
 
 
 # ---------------------------------------------------------------------------

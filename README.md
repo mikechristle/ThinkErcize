@@ -31,3 +31,7 @@ This game will help you to focus on and remember details.
 ### Tile Match
 The object of this game is to eliminate all the tiles as fast as possible.
 
+### Best Route
+Your job is to find stray dogs and return them to their homes.
+You have a small car, so you can only carry up to three dogs at a time.
+Since you don\'t have all day, you must find the shortest route possible.

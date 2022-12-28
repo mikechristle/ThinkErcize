@@ -16,9 +16,6 @@ IMAGE_WIDTH = CELL_COUNT * CELL_SIZE
 IMAGE_HEIGHT = CELL_COUNT * CELL_SIZE
 STATUS_HEIGHT = CELL_SIZE // 2
 
-COUNT_OFFSET = (IMAGE_WIDTH // 2) - (CELL_SIZE // 4)
-COUNT_LOC = (COUNT_OFFSET, COUNT_OFFSET)
-
 # Initialize pygame and setup the window
 pygame.init()
 screen = pygame.display.set_mode((IMAGE_WIDTH, IMAGE_HEIGHT + STATUS_HEIGHT))
@@ -34,6 +31,7 @@ HEADER_FONT_SIZE = CELL_SIZE // 2
 INFO_FONT_SIZE = CELL_SIZE // 3
 HEADER_FONT = pygame.font.SysFont('Arial', HEADER_FONT_SIZE)
 INFO_FONT = pygame.font.SysFont('Arial', INFO_FONT_SIZE)
+COUNT_FONT = pygame.font.SysFont('Arial', CELL_SIZE)
 
 BG_COLOR = 107, 142, 35
 WHITE = 255, 255, 255
@@ -54,20 +52,12 @@ def paint():
     screen.blit(st_image, (0, (CELL_SIZE * 7) + 1))
 
     match st.state:
-        case st.ST_COUNT3:
-            show_count('3')
-        case st.ST_COUNT2:
-            show_count('2')
-        case st.ST_COUNT1:
-            show_count('1')
         case st.ST_SHOW:
             show_mirrors()
         case st.ST_WAIT:
             show_laser()
-        case st.ST_FIRE:
-            fire_laser()
 
-    pygame.display.flip()
+    pygame.display.update()
 
 
 # ---------------------------------------------------------------------------
@@ -177,12 +167,11 @@ def show_mirrors():
 def show_count(count):
     """Paint the countdown counter."""
 
-    count_image.fill(YELLOW)
-    text = INFO_FONT.render(count, True, BLACK)
+    text = COUNT_FONT.render(count, True, YELLOW)
     rect = text.get_rect()
-    rect.center = CELL_SIZE // 4, CELL_SIZE // 4
-    count_image.blit(text, rect)
-    screen.blit(count_image, COUNT_LOC)
+    rect.center = IMAGE_WIDTH // 2, IMAGE_HEIGHT // 2
+    screen.blit(text, rect)
+    pygame.display.update()
 
 
 # ---------------------------------------------------------------------------

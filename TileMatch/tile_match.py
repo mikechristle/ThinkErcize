@@ -23,21 +23,21 @@ while True:
 
     # Get all pygame events
     for event in pygame.event.get():
-        match event.type:
+        match [event.type, st.state]:
 
             # Exit if window is closed
-            case pygame.QUIT:
+            case [pygame.QUIT, _]:
                 exit()
 
             # Any click starts the game
-            case pygame.MOUSEBUTTONDOWN if st.state == st.ST_IDLE:
+            case [pygame.MOUSEBUTTONDOWN, st.ST_IDLE]:
                 start_game()
                 pick_new_tile()
                 st.state = st.ST_START
                 st.delay_count = 5
 
             # Process clicks during the game
-            case pygame.MOUSEBUTTONDOWN if st.state == st.ST_PLAY:
+            case [pygame.MOUSEBUTTONDOWN, st.ST_PLAY]:
                 x, y = get_xy(event.pos)
                 if click(x, y) and st.state == st.ST_PLAY:
                     pick_new_tile()
@@ -47,7 +47,7 @@ while True:
                 paint()
 
             # Display a count down timer to start a game
-            case pygame.USEREVENT if st.state == st.ST_START:
+            case [pygame.USEREVENT, st.ST_START]:
                 st.delay_count -= 1
                 if st.delay_count == 0:
                     start_time = time.time()

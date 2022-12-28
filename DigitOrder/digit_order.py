@@ -48,11 +48,11 @@ while True:
                 delay_count -= 1
                 match delay_count:
                     case 42:
-                        paint_count(3)
+                        paint_count('3')
                     case 39:
-                        paint_count(2)
+                        paint_count('2')
                     case 36:
-                        paint_count(1)
+                        paint_count('1')
                     case 33:
                         delay_count = 4 + st.count
                         start_cycle()

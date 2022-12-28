@@ -84,11 +84,9 @@ def paint_count(count):
     """Paint the count down counter."""
 
     screen.fill(BG_COLOR)
-    text = str(count)
-    text = NUMBER_FONT.render(text, True, BLACK)
+    text = HEADER_FONT.render(count, True, YELLOW)
     rect = text.get_rect()
     rect.center = IMAGE_WIDTH // 2, IMAGE_HEIGHT // 2
-    pygame.draw.rect(screen, YELLOW, COUNT_RECT)
     screen.blit(text, rect)
     pygame.display.update()
 

@@ -14,7 +14,7 @@ STATUS_LOC = (0, (9 * CELL_SIZE) + 10)
 # Initialize pygame and setup the window
 pygame.init()
 screen = pygame.display.set_mode((IMAGE_WIDTH, IMAGE_HEIGHT))
-pygame.display.set_caption('Origami   V1.0')
+pygame.display.set_caption('Origami   V1.1')
 
 BG_SIZE = 8 * CELL_SIZE
 bg_image = pygame.Surface((BG_SIZE, BG_SIZE))

@@ -20,20 +20,20 @@ while True:
 
     # Get all pygame events
     for event in pygame.event.get():
-        match event.type:
+        match [event.type, st.state]:
 
             # Exit if window is closed
-            case pygame.QUIT:
+            case [pygame.QUIT, _]:
                 exit()
 
             # Any click starts the game
-            case pygame.MOUSEBUTTONDOWN if st.state == st.ST_IDLE:
+            case [pygame.MOUSEBUTTONDOWN, st.ST_IDLE]:
                 st.state = st.ST_WAIT
                 set_pattern()
                 paint()
 
             # Move the cursor over the image
-            case pygame.MOUSEMOTION if st.state == st.ST_WAIT:
+            case [pygame.MOUSEMOTION, st.ST_WAIT]:
                 x, y = get_xy(event.pos)
                 if x >= 0:
                     st.cursor_x = x
@@ -41,14 +41,14 @@ while True:
                     paint()
 
             # Player selects a position
-            case pygame.MOUSEBUTTONDOWN if st.state == st.ST_WAIT:
+            case [pygame.MOUSEBUTTONDOWN, st.ST_WAIT]:
                 if check_click():
                     paint()
                     delay_count = 10
                     st.state = st.ST_DONE
 
             # Delay 5 seconds then start a new game
-            case pygame.USEREVENT if st.state == st.ST_DONE:
+            case [pygame.USEREVENT, st.ST_DONE]:
                 delay_count -= 1
                 if delay_count == 0:
                     st.state = st.ST_WAIT

@@ -7,7 +7,6 @@
 import state as st
 
 from random import randrange
-from paint import paint, paint_background
 
 click_count = 0
 error_count = 0
@@ -39,10 +38,6 @@ def set_pattern():
             st.grid[y][x] = st.TILE
             count -= 1
 
-    # Update the background image
-    paint_background()
-    paint()
-
 
 # ---------------------------------------------------------------------------
 def click(x, y):
@@ -68,14 +63,11 @@ def click(x, y):
 
     # Update display
     st.grid[y][x] = cell
-    paint()
 
     # End of round
     if click_count == 0:
         st.state = st.ST_SHOW
-        paint()
         if error_count == 0 and st.level < 8:
             st.level += 1
         if st.round == 10:
             st.state = st.ST_INTRO
-            paint()

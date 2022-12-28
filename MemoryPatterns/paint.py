@@ -17,7 +17,7 @@ TILE_SIZE = CELL_SIZE - 7
 # Initialize pygame and setup the window
 pygame.init()
 screen = pygame.display.set_mode((IMAGE_WIDTH, IMAGE_HEIGHT))
-pygame.display.set_caption('Memory Patterns   V1.0')
+pygame.display.set_caption('Memory Patterns   V1.1')
 
 bg_image = pygame.Surface((BG_SIZE, BG_SIZE))
 offset_x = 0
@@ -27,8 +27,10 @@ HEADER_FONT = pygame.font.SysFont('Arial', 48)
 INFO_FONT = pygame.font.SysFont('Arial', 32)
 STATUS_FONT = pygame.font.SysFont('Arial', 26)
 
+BG_COLOR = 255, 255, 255
 WHITE = 255, 255, 255
 BLACK = 0, 0, 0
+YELLOW = 255, 255, 0
 GREEN = 0, 127, 0
 GRAY = 127, 127, 127
 RED = 255, 0, 0
@@ -43,10 +45,22 @@ COLORS = (
 def paint():
     """Paint the screen."""
 
-    screen.fill(WHITE)
+    screen.fill(BG_COLOR)
     screen.blit(bg_image, (0, 0))
     paint_pattern()
     paint_status()
+    pygame.display.update()
+
+
+# ---------------------------------------------------------------------------
+def paint_count(count):
+    """Paint the counter."""
+
+    screen.fill(BG_COLOR)
+    text = HEADER_FONT.render(count, True, BLACK)
+    rect = text.get_rect()
+    rect.center = IMAGE_WIDTH // 2, IMAGE_HEIGHT // 2
+    screen.blit(text, rect)
     pygame.display.update()
 
 
@@ -88,7 +102,7 @@ def paint_background():
     bottom = offset_y + (height * CELL_SIZE)
 
     # Clear the previous grid
-    bg_image.fill(WHITE)
+    bg_image.fill(BG_COLOR)
 
     # Draw the vertical lines
     for x in range(width + 1):
@@ -143,7 +157,7 @@ def paint_intro():
     )
 
     # Paint the game title
-    screen.fill(WHITE)
+    screen.fill(BG_COLOR)
     text = HEADER_FONT.render('Memory Patterns', True, BLACK)
     rect = text.get_rect()
     rect.center = (IMAGE_WIDTH // 2, 40)

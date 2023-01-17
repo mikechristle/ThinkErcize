@@ -6,6 +6,7 @@
 import pygame
 import state as st
 
+from time import time
 from sys import exit
 from paint import paint, get_xy, show_intro
 from logic import set_pattern, check_click
@@ -29,23 +30,30 @@ while True:
             # Any click starts the game
             case [pygame.MOUSEBUTTONDOWN, st.ST_IDLE]:
                 st.state = st.ST_WAIT
+                st.games = 0
+                st.score = 0
+                st.start_time = time()
                 set_pattern()
                 paint()
 
             # Move the cursor over the image
             case [pygame.MOUSEMOTION, st.ST_WAIT]:
                 x, y = get_xy(event.pos)
-                if x >= 0:
-                    st.cursor_x = x
-                    st.cursor_y = y
-                    paint()
+                st.cursor_x = x
+                st.cursor_y = y
+                paint()
 
             # Player selects a position
             case [pygame.MOUSEBUTTONDOWN, st.ST_WAIT]:
                 if check_click():
                     paint()
                     delay_count = 10
-                    st.state = st.ST_DONE
+                    if st.games == 10:
+                        st.start_time = time() - st.start_time
+                        st.state = st.ST_IDLE
+                        paint()
+                    else:
+                        st.state = st.ST_DONE
 
             # Delay 5 seconds then start a new game
             case [pygame.USEREVENT, st.ST_DONE]:

@@ -32,3 +32,4 @@ paper_h = 3
 
 games = 0
 score = 0
+start_time = 0

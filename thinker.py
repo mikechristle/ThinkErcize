@@ -17,6 +17,7 @@ FONT = ("Helvetica", 24)
 GAME_NAMES = (
     ('Laser Path', 'lp'),
     ('Maze Spinner', 'ms'),
+    ('Maze Escape', 'me'),
     ('Origami', 'or'),
     ('That\'s New', 'tn'),
     ('Train of Thought', 'tt'),
@@ -45,6 +46,7 @@ def handle_click(event):
     match str(event.widget):
         case '.lp': run('LaserPath', 'python laser_path.py')
         case '.ms': run('MazeSpinner', 'python maze_spinner.py')
+        case '.me': run('MazeEscape', 'python maze_escape.py')
         case '.or': run('Origami', 'python origami.py')
         case '.tn': run('ThatsNew', 'python thats_new.py')
         case '.tt': run('TrainOfThought', 'python train_of_thought.py')
@@ -77,7 +79,7 @@ def main():
     # Setup the window
     window = tk.Tk()
     window.title('Thinker Exercises')
-    window.geometry('300x480+50+50')
+    window.geometry('300x520+50+50')
     window.resizable(False, False)
 
     # Add a label for each game

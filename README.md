@@ -5,6 +5,9 @@ A set of brain exercises to enhance memory, attention and problem-solving skills
 A game to improve your concentration.
 Your job is to route a set of trains to the train barn of the same color.
 
+### Maze Escape
+Your jab is to find your way out of a 3D maze.
+
 ### Laser Path
 The purpose of this game is to develop your short term memory.
 For each of 10 rounds, a set of diagonal mirrors will be briefly displayed.
@@ -38,3 +41,13 @@ Since you don\'t have all day, you must find the shortest route possible.
 
 ### Which Arrow
 The purpose of this game is to determine the direction of the arrow at the center of the 5 arrow pattern.
+
+### Word Color
+In this game you must determine if the meaning of the word on the
+left matches the color of the word on the right.
+
+## Installation
+This game requires python 3.10 and pygame 2.1 or better.
+Download all the files to a directory on your computer.
+
+Type: python thinker.py

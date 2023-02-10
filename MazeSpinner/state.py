@@ -10,6 +10,7 @@ MAZE_SIZE = 12
 
 maze = [[Cell(x, y) for x in range(MAZE_SIZE)] for y in range(MAZE_SIZE)]
 game_active = False
+
 ball_x = 0
 ball_y = 0
 rotation_angle = 0.0

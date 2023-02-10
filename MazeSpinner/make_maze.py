@@ -1,6 +1,7 @@
 # ---------------------------------------------------------------------------
-# CastleDungeon, Paint
-# Mike Christle 2022
+# Maze Escape
+# Construct the maze
+# Mike Christle 2023
 # ---------------------------------------------------------------------------
 
 import random

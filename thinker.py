@@ -12,21 +12,29 @@ from subprocess import Popen
 
 BLUE = '#0000FF'
 BLACK = '#000000'
-FONT = ("Helvetica", 24)
+GREEN = '#008000'
+FONT0 = ("Helvetica 24 underline")
+FONT1 = ("Helvetica 24")
 
 GAME_NAMES = (
-    ('Laser Path', 'lp'),
-    ('Maze Spinner', 'ms'),
-    ('Maze Escape', 'me'),
-    ('Origami', 'or'),
-    ('That\'s New', 'tn'),
-    ('Train of Thought', 'tt'),
-    ('Memory Patterns', 'mp'),
-    ('Digit Order', 'do'),
-    ('Word Color', 'wc'),
-    ('Tile Match', 'tm'),
-    ('Best Route', 'bm'),
-    ('Which Arrow', 'wa'),
+    # Memory
+    ('Laser Path', 'lp', 0, 1),
+    ('That\'s New', 'tn', 0, 2),
+    ('Memory Patterns', 'mp', 0, 3),
+    ('Digit Order', 'do', 0, 4),
+
+    # Concentration
+    ('Maze Spinner', 'ms', 1, 1),
+    ('Train of Thought', 'tt', 1, 2),
+    ('Word Color', 'wc', 1, 3),
+    ('Tile Match', 'tm', 1, 4),
+    ('Which Arrow', 'wa', 1, 5),
+
+    # Problem Solving
+    ('Maze Escape', 'me', 2, 1),
+    ('Origami', 'or', 2, 2),
+    ('Best Route', 'bm', 2, 3),
+    ('Math Test', 'mt', 2, 4),
 )
 
 
@@ -56,6 +64,7 @@ def handle_click(event):
         case '.tm': run('TileMatch', 'python tile_match.py')
         case '.bm': run('BestRoute', 'python best_route.py')
         case '.wa': run('WhichArrow', 'python which_arrow.py')
+        case '.mt': run('MathTest', 'python math_test.py')
 
 
 # ---------------------------------------------------------------------------
@@ -79,19 +88,28 @@ def main():
     # Setup the window
     window = tk.Tk()
     window.title('Thinker Exercises')
-    window.geometry('300x520+50+50')
+    window.geometry('800x380')
     window.resizable(False, False)
+
+    lbl0 = tk.Label(window, text='Memory', font=FONT0, fg=GREEN)
+    lbl0.grid(column=0, row=0, pady=5, padx=10)
+
+    lbl1 = tk.Label(window, text='Concentration', font=FONT0, fg=GREEN)
+    lbl1.grid(column=1, row=0, pady=5, padx=10)
+
+    lbl2 = tk.Label(window, text='Problem Solving', font=FONT0, fg=GREEN)
+    lbl2.grid(column=2, row=0, pady=5, padx=10)
 
     # Add a label for each game
     for name in GAME_NAMES:
         lbl = tk.Label(
             window,
             text=name[0],
-            font=FONT,
+            font=FONT1,
             fg=BLACK,
             name=name[1],
         )
-        lbl.pack()
+        lbl.grid(column=name[2], row=name[3], pady=5, padx=10)
         lbl.bind("<Button-1>", handle_click)
         lbl.bind('<Enter>', enter)
         lbl.bind('<Leave>', leave)

@@ -45,8 +45,10 @@ def paint():
     """Paint the screen."""
 
     paint_walls()
-    screen.blit(view_image, (0, 0))
-    if not st.game_active:
+    if st.game_active:
+        screen.blit(view_image, (0, 0))
+    else:
+        screen.fill(RED1)
         paint_game_over()
     pygame.display.update()
 

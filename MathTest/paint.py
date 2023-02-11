@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------
-# Math Test
+# MathTest
 # Mike Christle 2023
 # ---------------------------------------------------------------------------
 
@@ -12,7 +12,7 @@ SCREEN_HEIGHT = 480
 # Initialize pygame and setup the window
 py.init()
 screen = py.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-py.display.set_caption("Math Test   V1.0")
+py.display.set_caption("MathTest   V1.0")
 
 HEADER_FONT = py.font.SysFont('Arial', 64)
 INFO_FONT = py.font.SysFont('Arial', 32)
@@ -88,7 +88,7 @@ def paint_intro():
     screen.fill(GREEN)
 
     # Paint the game title
-    text = HEADER_FONT.render("Math Test", True, BLACK)
+    text = HEADER_FONT.render("MathTest", True, BLACK)
     rect = text.get_rect()
     rect.center = (SCREEN_WIDTH // 2, 40)
     screen.blit(text, rect)

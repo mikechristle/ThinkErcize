@@ -12,9 +12,6 @@ from paint import paint_pattern, paint
 CARDS = st.IMG_C, st.IMG_D, st.IMG_H, st.IMG_S
 FLIPS = st.FLIP_VERT, st.FLIP_HORZ, st.FLIP_BOTH, st.FLIP_DIAG
 
-pygame.mixer.init()
-ding = pygame.mixer.Sound('Sounds/Ding.wav')
-whoop = pygame.mixer.Sound('Sounds/Whoop.wav')
 success = False
 
 
@@ -51,9 +48,6 @@ def check_click():
     st.games += 1
     if success:
         st.score += 1
-        ding.play()
-    else:
-        whoop.play()
 
     # Return true to indicate that the pattern was checked
     return True

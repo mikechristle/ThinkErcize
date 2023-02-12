@@ -18,7 +18,7 @@ IMAGE_HEIGHT = st.GRID_HEIGHT * CELL_SIZE
 # Initialize pygame and setup the window
 pygame.init()
 screen = pygame.display.set_mode((IMAGE_WIDTH, IMAGE_HEIGHT + CELL_SIZE))
-pygame.display.set_caption('Train Of Thought   V0.1')
+pygame.display.set_caption('Train Of Thought   V1.1')
 
 bg_image = pygame.Surface((IMAGE_WIDTH, IMAGE_HEIGHT))
 btn_image = pygame.Surface((IMAGE_WIDTH, CELL_SIZE))

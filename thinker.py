@@ -42,9 +42,14 @@ GAME_NAMES = (
 def run(path, command):
     """Run a game program."""
 
+    window.iconify()
     os.chdir(path)
-    Popen(command)
+
+    with Popen(command) as process:
+        process.wait()
+
     os.chdir('..')
+    window.deiconify()
 
 
 # ---------------------------------------------------------------------------
@@ -84,6 +89,8 @@ def leave(event):
 # ---------------------------------------------------------------------------
 def main():
     """Main program."""
+
+    global window
 
     # Setup the window
     window = tk.Tk()

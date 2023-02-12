@@ -27,7 +27,7 @@ count_image = pygame.Surface((CELL_SIZE // 2, CELL_SIZE // 2))
 
 laser_path = []
 
-HEADER_FONT_SIZE = CELL_SIZE // 2
+HEADER_FONT_SIZE = CELL_SIZE #// 2
 INFO_FONT_SIZE = CELL_SIZE // 3
 HEADER_FONT = pygame.font.SysFont('Arial', HEADER_FONT_SIZE)
 INFO_FONT = pygame.font.SysFont('Arial', INFO_FONT_SIZE)
@@ -205,17 +205,17 @@ def show_intro():
     # Paint the game title
     text = HEADER_FONT.render('Laser Path', True, WHITE)
     rect = text.get_rect()
-    rect.center = (IMAGE_WIDTH // 2, 20)
+    rect.center = (IMAGE_WIDTH // 2, 40)
     bg_image.blit(text, rect)
 
     # Paint each line ot intro text
-    y = CELL_SIZE
+    y = 120
     for line in intro:
         text = INFO_FONT.render(line, True, WHITE)
         rect = text.get_rect()
         rect.center = (IMAGE_WIDTH // 2, y)
         bg_image.blit(text, rect)
-        y += (CELL_SIZE // 2)
+        y += 40
 
     screen.blit(bg_image, (0, 0))
     screen.blit(st_image, (0, CELL_SIZE * 7))

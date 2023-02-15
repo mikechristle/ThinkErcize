@@ -17,25 +17,25 @@ path = []
 def start_game():
     """Initialize the game board to start a game."""
 
-    make_maze(st.level, st.maze)
+    make_maze(st.grid_size, st.maze)
     st.miles = 0
 
     # Add houses to maze
-    count = st.level - 1
+    count = st.level
     st.house_count = count
     while count > 0:
-        x = randrange(st.level)
-        y = randrange(st.level)
+        x = randrange(st.grid_size)
+        y = randrange(st.grid_size)
         cell = st.maze[y][x]
         if cell.val == 0:
             cell.val = 9 + count
             count -= 1
 
     # Add dogs to maze
-    count = st.level - 1
+    count = st.level
     while count > 0:
-        x = randrange(st.level)
-        y = randrange(st.level)
+        x = randrange(st.grid_size)
+        y = randrange(st.grid_size)
         cell = st.maze[y][x]
         if cell.val == 0:
             cell.val = 19 + count
@@ -43,8 +43,8 @@ def start_game():
 
     # Add players car to maze
     while True:
-        st.car_x = randrange(st.level)
-        st.car_y = randrange(st.level)
+        st.car_x = randrange(st.grid_size)
+        st.car_y = randrange(st.grid_size)
         cell = st.maze[st.car_y][st.car_x]
         if cell.val == 0:
             cell.val = 1
@@ -56,7 +56,7 @@ def click(x, y):
     """Process clicks on the game board."""
 
     # Ignore clicks outside of the game board
-    if x < 0 or x >= st.level or y < 0 or y >= st.level:
+    if x < 0 or x >= st.grid_size or y < 0 or y >= st.grid_size:
         return
 
     # Ignore cells that do not have a dog or a house
@@ -67,17 +67,18 @@ def click(x, y):
     # Clicked on a dog
     if cell.val >= 20:
         if len(st.car) < 3:
-            st.car.append(cell.val)
+            dog = cell.val
             find_shortest_path(x, y)
             move_car(x, y)
+            st.car.append(dog)
 
     # Clicked on a house
     elif cell.val >= 10:
         dog = cell.val + 10
         if dog in st.car:
-            st.car.remove(dog)
             find_shortest_path(x, y)
             move_car(x, y)
+            st.car.remove(dog)
             st.house_count -= 1
             if st.house_count == 0:
                 st.state = st.ST_IDLE

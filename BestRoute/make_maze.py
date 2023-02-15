@@ -3,8 +3,9 @@
 # Mike Christle 2022
 # ---------------------------------------------------------------------------
 
-import random
-# from cell import Cell
+import state as st
+
+from random import randrange
 
 # ---------------------------------------------------------------------------
 # Constants
@@ -31,9 +32,9 @@ def make_maze(size, empty_maze):
 
     # Clear the maze
     maze = empty_maze
-    for y, line in enumerate(maze):
-        for x, cell in enumerate(line):
-            cell.clear(x, y)
+    for y in range(8):
+        for x in range(8):
+            st.maze[y][x].clear(x, y)
 
     cnt_y = size
     cnt_x = size
@@ -41,8 +42,8 @@ def make_maze(size, empty_maze):
     last_y = cnt_y - 1
 
     # Pick a random cell to start with
-    first_x = random.randrange(0, cnt_x)
-    first_y = random.randrange(0, cnt_y)
+    first_x = randrange(0, cnt_x)
+    first_y = randrange(0, cnt_y)
     maze[first_y][first_x].val = ST_IN_MAZE
     border_cells.extend(get_neighbors(first_x, first_y, ST_IDLE, ST_NEIGHBOR))
 
@@ -54,7 +55,7 @@ def make_maze(size, empty_maze):
             break
 
         # Pick a random border cell
-        new_cell = border_cells.pop(random.randrange(cnt))
+        new_cell = border_cells.pop(randrange(cnt))
 
         # Get the neighbors of the new cell
         n = get_neighbors(new_cell.x, new_cell.y, ST_IN_MAZE, ST_IN_MAZE)
@@ -64,7 +65,7 @@ def make_maze(size, empty_maze):
             break
 
         # Pick a random neighbor cell
-        old_cell = n.pop(random.randrange(len(n)))
+        old_cell = n.pop(randrange(len(n)))
 
         # Remove the wall between the cells
         merge_cells(old_cell, new_cell)
@@ -152,12 +153,12 @@ def remove_wall(size):
     while True:
 
         # Pick a random cell
-        x = random.randrange(size)
-        y = random.randrange(size)
+        x = randrange(size)
+        y = randrange(size)
         cell = maze[y][x]
 
         # Pick a random direction
-        match random.randrange(4):
+        match randrange(4):
 
             # If cell has a right wall, remove it
             case 0 if not cell.rit and x < max_xy:

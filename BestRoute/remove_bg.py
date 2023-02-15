@@ -7,11 +7,11 @@
 # ---------------------------------------------------------------------------
 
 from PIL import Image
-import glob
+from glob import glob
 
 BG_COLOR = 255, 255, 255
 
-for file in glob.glob(r'Images\car.bmp'):
+for file in glob(r'Images\car.bmp'):
     print(file)
     file1 = file[:-3] + 'png'
     img0 = Image.open(file)

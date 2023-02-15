@@ -19,12 +19,17 @@ class Cell:
     def clear(self, x, y):
         self.x = x
         self.y = y
+
         self.top = False
         self.bot = False
         self.lft = False
         self.rit = False
-        self.vis = False
         self.val = 0
+
+    def set(self, x, y):
+        self.x = x
+        self.y = y
+        self.vis = True
 
     def __repr__(self):
         return f'{self.x} {self.y} {self.vis}'

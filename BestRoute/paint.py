@@ -4,7 +4,7 @@
 # ---------------------------------------------------------------------------
 
 
-import pygame
+import pygame as py
 import state as st
 
 from images import DOGS, HOUSES, CAR
@@ -28,21 +28,22 @@ CAR_P2 = CAR_X2, CAR_Y0
 LEVEL_SPACE = 48
 LEVEL_X0 = CELL_SIZE
 LEVEL_Y0 = IMAGE_HEIGHT - LEVEL_SPACE
-LEVEL_Y1 = LEVEL_Y0 - LEVEL_SPACE
+LEVEL_Y1 = LEVEL_Y0 - 70
+LEVEL_Y2 = LEVEL_Y0 - 34
 START_X0 = 3 * IMAGE_WIDTH // 4
 
 # Initialize pygame and setup the window
-pygame.init()
-screen = pygame.display.set_mode((IMAGE_WIDTH, IMAGE_HEIGHT))
-pygame.display.set_caption('Best Route   V1.0')
+py.init()
+screen = py.display.set_mode((IMAGE_WIDTH, IMAGE_HEIGHT))
+py.display.set_caption('Best Route   V1.2')
 
-bg_image = pygame.Surface((IMAGE_WIDTH, IMAGE_HEIGHT))
+bg_image = py.Surface((IMAGE_WIDTH, IMAGE_HEIGHT))
 offset = 0
 
-HEADER_FONT = pygame.font.SysFont('Arial', 52)
-TEXT_FONT = pygame.font.SysFont('Arial', 30)
-LEVEL_FONT = pygame.font.SysFont('Arial', 40)
-STATUS_FONT = pygame.font.SysFont('Arial', 30)
+HEADER_FONT = py.font.SysFont('Arial', 52)
+TEXT_FONT = py.font.SysFont('Arial', 30)
+LEVEL_FONT = py.font.SysFont('Arial', 40)
+STATUS_FONT = py.font.SysFont('Arial', 30)
 
 BG_COLOR = 62, 142, 0
 WHITE = 255, 255, 255
@@ -62,16 +63,16 @@ def paint():
     screen.blit(bg_image, (0, 0))
     paint_maze()
     paint_car()
-    pygame.display.update()
+    py.display.update()
 
 
 # ---------------------------------------------------------------------------
 def paint_maze():
     """Paint the car, dogs and houses on the maze."""
 
-    for y in range(st.level):
+    for y in range(st.grid_size):
         y0 = (y * CELL_SIZE) + offset + HALF_CELL
-        for x in range(st.level):
+        for x in range(st.grid_size):
             x0 = (x * CELL_SIZE) + offset + HALF_CELL
             val = st.maze[y][x].val
             if val >= 20:
@@ -103,8 +104,14 @@ def paint_car():
 
     # Paint miles traveled
     if st.miles > 0:
-        text = f'{st.miles} Miles'
-        text = LEVEL_FONT.render(text, True, WHITE)
+        text = f'Your path {st.miles} miles.'
+        text = STATUS_FONT.render(text, True, WHITE)
+        screen.blit(text, (LEVEL_X0, LEVEL_Y2))
+
+    # Paint the shortest miles
+    if st.least_miles > 0:
+        text = f'Best path {st.least_miles} miles.'
+        text = STATUS_FONT.render(text, True, WHITE)
         screen.blit(text, (LEVEL_X0, LEVEL_Y1))
 
 
@@ -114,37 +121,37 @@ def build_background():
 
     # Offset is the distance in pixels to the first cell
     global offset
-    offset = (IMAGE_WIDTH - (st.level * CELL_SIZE)) // 2
+    offset = (IMAGE_WIDTH - (st.grid_size * CELL_SIZE)) // 2
 
     bg_image.fill(BG_COLOR)
 
     # For eac cell in the maze
-    for y in range(st.level):
+    for y in range(st.grid_size):
         y0 = (y * CELL_SIZE) + offset + HALF_CELL
-        for x in range(st.level):
+        for x in range(st.grid_size):
             x0 = (x * CELL_SIZE) + offset + HALF_CELL
             cell = st.maze[y][x]
 
             # If no wall on right side, paint a road
             if cell.rit:
                 x1 = x0 + CELL_SIZE
-                pygame.draw.line(bg_image, GRAY,
-                                 (x0, y0), (x1, y0), width=LINE_WIDTH)
+                py.draw.line(bg_image, GRAY,
+                        (x0, y0), (x1, y0), width=LINE_WIDTH)
 
             # If no wall below, paint a road
             if cell.bot:
                 y1 = y0 + CELL_SIZE
-                pygame.draw.line(bg_image, GRAY,
-                                 (x0, y0), (x0, y1), width=LINE_WIDTH)
+                py.draw.line(bg_image, GRAY,
+                        (x0, y0), (x0, y1), width=LINE_WIDTH)
 
             # Paint a circle and a yellow dot on each cell
-            pygame.draw.circle(bg_image, GRAY, (x0, y0), CIRCLE_RADIUS)
-            pygame.draw.circle(bg_image, YELLOW, (x0, y0), 3)
+            py.draw.circle(bg_image, GRAY, (x0, y0), CIRCLE_RADIUS)
+            py.draw.circle(bg_image, YELLOW, (x0, y0), 3)
 
     # Draw the background for the car
-    pygame.draw.line(bg_image, GRAY, CAR_P0, CAR_P2, width=LINE_WIDTH)
-    pygame.draw.circle(bg_image, GRAY, CAR_P0, CIRCLE_RADIUS)
-    pygame.draw.circle(bg_image, GRAY, CAR_P2, CIRCLE_RADIUS)
+    py.draw.line(bg_image, GRAY, CAR_P0, CAR_P2, width=LINE_WIDTH)
+    py.draw.circle(bg_image, GRAY, CAR_P0, CIRCLE_RADIUS)
+    py.draw.circle(bg_image, GRAY, CAR_P2, CIRCLE_RADIUS)
 
 
 # ---------------------------------------------------------------------------
@@ -153,7 +160,7 @@ def paint_status():
 
     # Paint levels
     x0 = LEVEL_X0
-    for level in range(4, 9):
+    for level in range(3, 7):
         color = WHITE if level == st.level else BLACK
         text = LEVEL_FONT.render(str(level), True, color)
         screen.blit(text, (x0, LEVEL_Y0))
@@ -163,7 +170,7 @@ def paint_status():
     text = LEVEL_FONT.render('START', True, WHITE)
     screen.blit(text, (START_X0, LEVEL_Y0))
 
-    pygame.display.update()
+    py.display.update()
 
 
 # ---------------------------------------------------------------------------
@@ -171,7 +178,7 @@ def get_level(xy):
     """
     Decode screen coordinates to return level or start command.
     Returns 0 if nothing clicked.
-    Returns 4-8 for a level.
+    Returns 3-6 for a level.
     Returns 10 for start command.
     """
 
@@ -181,10 +188,10 @@ def get_level(xy):
     if xy[0] > START_X0:
         return 10
 
-    if xy[0] < LEVEL_X0 or xy[0] > (LEVEL_X0 + (5 * LEVEL_SPACE)):
+    if xy[0] < LEVEL_X0 or xy[0] > (LEVEL_X0 + (4 * LEVEL_SPACE)):
         return 0
 
-    return ((xy[0] - LEVEL_X0) // LEVEL_SPACE) + 4
+    return ((xy[0] - LEVEL_X0) // LEVEL_SPACE) + 3
 
 
 # ---------------------------------------------------------------------------
@@ -228,4 +235,4 @@ def show_intro():
         screen.blit(text, rect)
         y += 35
 
-    pygame.display.update()
+    py.display.update()

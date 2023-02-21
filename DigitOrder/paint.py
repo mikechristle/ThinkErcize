@@ -19,7 +19,7 @@ COUNT_LOC = COUNT_X + 20, COUNT_Y + 8
 # Initialize pygame and setup the window
 pygame.init()
 screen = pygame.display.set_mode((IMAGE_WIDTH, IMAGE_HEIGHT + STATUS_HEIGHT))
-pygame.display.set_caption('Digit Order   V1.1')
+pygame.display.set_caption('Digit Order   V1.2')
 
 HEADER_FONT = pygame.font.SysFont('Arial', 52)
 TEXT_FONT = pygame.font.SysFont('Arial', 30)

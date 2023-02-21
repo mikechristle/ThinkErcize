@@ -15,7 +15,7 @@ def start_game():
     """Setup for a new game."""
 
     st.score = 0
-    st.cycle = 1
+    st.cycle = 0
     st.count = 4
     clear_grid()
 
@@ -65,17 +65,18 @@ def click(x, y):
         cell.state = st.CLICK
         st.score += 1
 
+        # End the round when all numbers clicked
+        number_count -= 1
+        if number_count == 0:
+            st.state = st.ST_NEXT
+            if st.count < 9:
+                st.count += 1
+
     # Otherwise report the error and end the round
     else:
         cell.state = st.ERROR
         st.state = st.ST_NEXT
 
-    # End the round when all numbers clicked
-    number_count -= 1
-    if number_count == 0:
-        st.state = st.ST_NEXT
-        if st.count < 9:
-            st.count += 1
 
 
 # ---------------------------------------------------------------------------

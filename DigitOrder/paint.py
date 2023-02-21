@@ -3,7 +3,7 @@
 # Mike Christle 2022
 # ---------------------------------------------------------------------------
 
-import pygame
+import pygame as pg
 import state as st
 
 CELL_SIZE = 50
@@ -17,14 +17,14 @@ COUNT_RECT = COUNT_X, COUNT_Y, CELL_SIZE, CELL_SIZE
 COUNT_LOC = COUNT_X + 20, COUNT_Y + 8
 
 # Initialize pygame and setup the window
-pygame.init()
-screen = pygame.display.set_mode((IMAGE_WIDTH, IMAGE_HEIGHT + STATUS_HEIGHT))
-pygame.display.set_caption('Digit Order   V1.2')
+pg.init()
+screen = pg.display.set_mode((IMAGE_WIDTH, IMAGE_HEIGHT + STATUS_HEIGHT))
+pg.display.set_caption('Digit Order   V1.2')
 
-HEADER_FONT = pygame.font.SysFont('Arial', 52)
-TEXT_FONT = pygame.font.SysFont('Arial', 30)
-NUMBER_FONT = pygame.font.SysFont('Arial', 32)
-STATUS_FONT = pygame.font.SysFont('Arial', 30)
+HEADER_FONT = pg.font.SysFont('Arial', 52)
+TEXT_FONT = pg.font.SysFont('Arial', 30)
+NUMBER_FONT = pg.font.SysFont('Arial', 32)
+STATUS_FONT = pg.font.SysFont('Arial', 30)
 
 BG_COLOR = 107, 142, 35
 WHITE = 255, 255, 255
@@ -42,7 +42,7 @@ def paint():
     screen.fill(BG_COLOR)
     paint_grid()
     paint_status()
-    pygame.display.update()
+    pg.display.update()
 
 
 # ---------------------------------------------------------------------------
@@ -66,7 +66,7 @@ def paint_circle(x, y, color):
     """Paint a circle."""
 
     rect = x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE
-    pygame.draw.ellipse(screen, color, rect, width=5)
+    pg.draw.ellipse(screen, color, rect, width=5)
 
 
 # ---------------------------------------------------------------------------
@@ -88,15 +88,17 @@ def paint_count(count):
     rect = text.get_rect()
     rect.center = IMAGE_WIDTH // 2, IMAGE_HEIGHT // 2
     screen.blit(text, rect)
-    pygame.display.update()
+    pg.display.update()
 
 
 # ---------------------------------------------------------------------------
 def paint_status():
     """Paint the contents of the status bar."""
 
-    text = f'   Score {st.score}   '\
-           f'Round {st.cycle}'
+    if st.state == st.ST_SHOW or st.state == st.ST_WAIT:
+        return
+
+    text = f'  Round {st.cycle}    Score {st.score}'
     if st.state == st.ST_IDLE:
         text += '    Click to start game'
     text = STATUS_FONT.render(text, True, WHITE)
@@ -143,4 +145,4 @@ def show_intro():
         screen.blit(text, rect)
         y += 35
 
-    pygame.display.update()
+    pg.display.update()

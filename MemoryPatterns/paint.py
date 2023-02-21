@@ -4,7 +4,7 @@
 # Mike Christle 2022
 # ---------------------------------------------------------------------------
 
-import pygame
+import pygame as pg
 import state as st
 
 CELL_SIZE = 60
@@ -15,29 +15,29 @@ STATUS_LOC = (0, BG_SIZE + 10)
 TILE_SIZE = CELL_SIZE - 7
 
 # Initialize pygame and setup the window
-pygame.init()
-screen = pygame.display.set_mode((IMAGE_WIDTH, IMAGE_HEIGHT))
-pygame.display.set_caption('Memory Patterns   V1.1')
+pg.init()
+screen = pg.display.set_mode((IMAGE_WIDTH, IMAGE_HEIGHT))
+pg.display.set_caption('Memory Patterns   V1.2')
 
-bg_image = pygame.Surface((BG_SIZE, BG_SIZE))
+bg_image = pg.Surface((BG_SIZE, BG_SIZE))
 offset_x = 0
 offset_y = 0
 
-HEADER_FONT = pygame.font.SysFont('Arial', 48)
-INFO_FONT = pygame.font.SysFont('Arial', 32)
-STATUS_FONT = pygame.font.SysFont('Arial', 26)
+HEADER_FONT = pg.font.SysFont('Arial', 48)
+INFO_FONT = pg.font.SysFont('Arial', 32)
+STATUS_FONT = pg.font.SysFont('Arial', 26)
 
 BG_COLOR = 255, 255, 255
 WHITE = 255, 255, 255
 BLACK = 0, 0, 0
-YELLOW = 255, 255, 0
 GREEN = 0, 127, 0
 GRAY = 127, 127, 127
 RED = 255, 0, 0
 COLORS = (
     (WHITE, GREEN, GRAY, RED), # state = INTRO
-    (WHITE, GREEN, GRAY, RED), # state = SHOW
+    (WHITE, GREEN, GRAY, RED), # state = COUNT
     (WHITE, WHITE, GRAY, RED), # state = WAIT
+    (WHITE, GREEN, GRAY, RED),  # state = SHOW
 )
 
 
@@ -49,7 +49,7 @@ def paint():
     screen.blit(bg_image, (0, 0))
     paint_pattern()
     paint_status()
-    pygame.display.update()
+    pg.display.update()
 
 
 # ---------------------------------------------------------------------------
@@ -61,7 +61,7 @@ def paint_count(count):
     rect = text.get_rect()
     rect.center = IMAGE_WIDTH // 2, IMAGE_HEIGHT // 2
     screen.blit(text, rect)
-    pygame.display.update()
+    pg.display.update()
 
 
 # ---------------------------------------------------------------------------
@@ -80,7 +80,7 @@ def paint_pattern():
             if cell != st.BLANK:
                 color = COLORS[st.state][cell]
                 rect = x0, y0, TILE_SIZE, TILE_SIZE
-                pygame.draw.rect(screen, color, rect)
+                pg.draw.rect(screen, color, rect)
 
 
 # ---------------------------------------------------------------------------
@@ -108,25 +108,28 @@ def paint_background():
     for x in range(width + 1):
         p0 = offset_x + (x * CELL_SIZE), offset_y
         p1 = offset_x + (x * CELL_SIZE), bottom
-        pygame.draw.line(bg_image, BLACK, p0, p1, width=3)
+        pg.draw.line(bg_image, BLACK, p0, p1, width=3)
 
     # Draw the horizontal lines
     for y in range(height + 1):
         p0 = offset_x, offset_y + (y * CELL_SIZE)
         p1 = right, offset_y + (y * CELL_SIZE)
-        pygame.draw.line(bg_image, BLACK, p0, p1, width=3)
+        pg.draw.line(bg_image, BLACK, p0, p1, width=3)
 
 
 # ---------------------------------------------------------------------------
 def paint_status():
     """Paint the status bar."""
 
+    if st.state == st.ST_COUNT:
+        return
+
     if st.state == st.ST_WAIT:
         text = f'  Click the squares that were green'
     else:
-        text = f'  Round {st.round}   Level {st.level + 4}'
+        text = f'  Round {st.cycle}   Score {st.score}'
     if st.state == st.ST_INTRO:
-        text += '      Click to start new game'
+        text += '     Click to start new game'
     text = STATUS_FONT.render(text, True, BLACK)
     screen.blit(text, STATUS_LOC)
 
@@ -172,4 +175,4 @@ def paint_intro():
         screen.blit(text, rect)
         y += 40
 
-    pygame.display.update()
+    pg.display.update()

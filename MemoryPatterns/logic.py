@@ -60,6 +60,7 @@ def click(x, y):
     elif cell == st.TILE:
         cell = st.CLICK
         click_count -= 1
+        st.score += 1
 
     # Update display
     st.grid[y][x] = cell
@@ -69,5 +70,5 @@ def click(x, y):
         st.state = st.ST_SHOW
         if error_count == 0 and st.level < 8:
             st.level += 1
-        if st.round == 10:
+        if st.cycle == 10:
             st.state = st.ST_INTRO

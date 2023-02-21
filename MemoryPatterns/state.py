@@ -19,8 +19,10 @@ ERROR = 3
 grid = [[BLANK for _ in range(7)] for _ in range(7)]
 
 ST_INTRO = 0
-ST_SHOW = 1
+ST_COUNT = 1
 ST_WAIT = 2
+ST_SHOW = 3
 state = ST_INTRO
 
-round = 0
+cycle = 0
+score = 0

@@ -74,7 +74,7 @@ def click(x, y):
     number_count -= 1
     if number_count == 0:
         st.state = st.ST_NEXT
-        if st.count < 10:
+        if st.count < 9:
             st.count += 1
 
 
@@ -82,6 +82,6 @@ def click(x, y):
 def clear_grid():
     """Clear the grid."""
 
-    for y in range(st.GRID_HEIGHT):
-        for x in range(st.GRID_WIDTH):
-            st.grid[y][x].state = st.BLANK
+    for row in st.grid:
+        for cell in row:
+            cell.state = st.BLANK

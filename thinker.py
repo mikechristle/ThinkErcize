@@ -5,9 +5,9 @@
 # Mike Christle 2022
 # ---------------------------------------------------------------------------
 
-import os
 import tkinter as tk
 
+from os import chdir
 from subprocess import Popen
 
 BLUE = '#0000FF'
@@ -43,12 +43,12 @@ def run(path, command):
     """Run a game program."""
 
     window.iconify()
-    os.chdir(path)
+    chdir(path)
 
     with Popen(command) as process:
         process.wait()
 
-    os.chdir('..')
+    chdir('..')
     window.deiconify()
 
 
@@ -94,7 +94,7 @@ def main():
 
     # Setup the window
     window = tk.Tk()
-    window.title('Thinker Exercises')
+    window.title('Thinker Exercises   V1.1')
     window.geometry('800x380')
     window.resizable(False, False)
 

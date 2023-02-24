@@ -4,8 +4,7 @@
 # Mike Christle 2022
 # ---------------------------------------------------------------------------
 
-import sys
-import pygame
+import pygame as pg
 import state as st
 
 from paint import paint, get_xy, paint_intro
@@ -18,20 +17,20 @@ paint_intro()
 while True:
 
     # Get all pygame events
-    for event in pygame.event.get():
+    for event in pg.event.get():
         match event.type:
 
             # Exit if window is closed
-            case pygame.QUIT:
-                sys.exit()
+            case pg.QUIT:
+                exit()
 
             # Process clicks on images
-            case pygame.MOUSEBUTTONDOWN if st.game_active:
+            case pg.MOUSEBUTTONDOWN if st.game_active:
                 x, y = get_xy(event.pos)
                 click(x, y)
                 paint()
 
             # Any click starts a new game
-            case pygame.MOUSEBUTTONDOWN if not st.game_active:
+            case pg.MOUSEBUTTONDOWN if not st.game_active:
                 init_game()
                 paint()

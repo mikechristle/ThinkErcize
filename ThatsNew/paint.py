@@ -1,10 +1,10 @@
 # ---------------------------------------------------------------------------
-# Laser Path
+# That's New
 # Paint the screen
 # Mike Christle 2022
 # ---------------------------------------------------------------------------
 
-import pygame
+import pygame as pg
 import state as st
 
 from images import IMAGES
@@ -19,12 +19,12 @@ STATUS_HEIGHT = CELL_SIZE
 STATUS_LOC = IMAGE_WIDTH // 2, int(6.5 * CELL_SIZE)
 
 # Initialize pygame and setup the window
-pygame.init()
-screen = pygame.display.set_mode((IMAGE_WIDTH, IMAGE_HEIGHT))
-pygame.display.set_caption("What's New   V1.0")
+pg.init()
+screen = pg.display.set_mode((IMAGE_WIDTH, IMAGE_HEIGHT))
+pg.display.set_caption("What's New   V1.1")
 
-HEADER_FONT = pygame.font.SysFont('Arial', 64)
-INFO_FONT = pygame.font.SysFont('Arial', 32)
+HEADER_FONT = pg.font.SysFont('Arial', 64)
+INFO_FONT = pg.font.SysFont('Arial', 32)
 
 WHITE = 255, 255, 255
 BLACK = 0, 0, 0
@@ -41,7 +41,7 @@ def paint():
     screen.fill(WHITE)
     paint_grid()
     paint_status()
-    pygame.display.update()
+    pg.display.update()
 
 
 # ---------------------------------------------------------------------------
@@ -56,7 +56,7 @@ def paint_grid():
             if not st.game_active and img > 0:
                 color = BG_COLORS[bg]
                 rect = x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE
-                pygame.draw.rect(screen, color, rect)
+                pg.draw.rect(screen, color, rect)
 
             # Paint images
             if img > 0:
@@ -113,4 +113,4 @@ def paint_intro():
         screen.blit(text, rect)
         y += 60
 
-    pygame.display.update()
+    pg.display.update()

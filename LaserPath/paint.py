@@ -19,7 +19,7 @@ STATUS_HEIGHT = CELL_SIZE // 2
 # Initialize pygame and setup the window
 pg.init()
 screen = pg.display.set_mode((IMAGE_WIDTH, IMAGE_HEIGHT + STATUS_HEIGHT))
-pg.display.set_caption('Laser Path   V1.2')
+pg.display.set_caption('Laser Path   V1.3')
 
 bg_image = pg.Surface((IMAGE_WIDTH, IMAGE_HEIGHT))
 st_image = pg.Surface((IMAGE_WIDTH, STATUS_HEIGHT))

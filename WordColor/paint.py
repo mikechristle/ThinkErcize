@@ -3,7 +3,7 @@
 # Mike Christle 2022
 # ---------------------------------------------------------------------------
 
-import pygame
+import pygame as pg
 import state as st
 
 IMAGE_WIDTH = 600
@@ -21,13 +21,13 @@ RIGHT_CENTER = 3 * IMAGE_WIDTH // 4, IMAGE_HEIGHT // 2
 
 
 # Initialize pygame and setup the window
-pygame.init()
-screen = pygame.display.set_mode((IMAGE_WIDTH, IMAGE_HEIGHT))
-pygame.display.set_caption('Word Color   V1.0')
+pg.init()
+screen = pg.display.set_mode((IMAGE_WIDTH, IMAGE_HEIGHT))
+pg.display.set_caption('Word Color   V1.1')
 
-WORD_FONT = pygame.font.SysFont('Arial', 80)
-HEADER_FONT = pygame.font.SysFont('Arial', 64)
-INFO_FONT = pygame.font.SysFont('Arial', 36)
+WORD_FONT = pg.font.SysFont('Arial', 80)
+HEADER_FONT = pg.font.SysFont('Arial', 64)
+INFO_FONT = pg.font.SysFont('Arial', 36)
 
 BG_COLOR = 220, 220, 220
 BLACK = 0, 0, 0
@@ -53,8 +53,8 @@ def paint():
     screen.blit(text, rect)
 
     # Background boxes
-    pygame.draw.rect(screen, WHITE, LEFT_BOX)
-    pygame.draw.rect(screen, WHITE, RIGHT_BOX)
+    pg.draw.rect(screen, WHITE, LEFT_BOX)
+    pg.draw.rect(screen, WHITE, RIGHT_BOX)
 
     # Paint the left side word
     word = WORDS[st.left_word]
@@ -78,7 +78,7 @@ def paint():
         text = INFO_FONT.render(text, True, BLACK)
         screen.blit(text, (10, IMAGE_HEIGHT - 50))
 
-    pygame.display.update()
+    pg.display.update()
 
 
 # ---------------------------------------------------------------------------
@@ -112,4 +112,4 @@ def paint_intro():
         screen.blit(text, rect)
         y += 45
 
-    pygame.display.update()
+    pg.display.update()

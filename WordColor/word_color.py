@@ -3,8 +3,7 @@
 # Mike Christle 2022
 # ---------------------------------------------------------------------------
 
-import sys
-import pygame
+import pygame as pg
 import state as st
 
 from paint import paint, paint_intro
@@ -16,34 +15,34 @@ timeout_counter = 0
 paint_intro()
 
 # 1.0 Second timer event
-pygame.time.set_timer(pygame.USEREVENT, 1000)
+pg.time.set_timer(pg.USEREVENT, 1000)
 
 while True:
 
     # Get all pygame events
-    for event in pygame.event.get():
+    for event in pg.event.get():
         match event.type:
 
             # Exit if window is closed
-            case pygame.QUIT:
-                sys.exit()
+            case pg.QUIT:
+                exit()
 
             # Pressing the space ber starts a round
-            case pygame.KEYDOWN if not st.game_active:
-                if event.key == pygame.K_SPACE:
+            case pg.KEYDOWN if not st.game_active:
+                if event.key == pg.K_SPACE:
                     start_round()
                     timeout_counter = 30
                     paint()
 
             # Right and left arrow keys for player input
-            case pygame.KEYDOWN if st.game_active:
-                if event.key == pygame.K_LEFT or \
-                   event.key == pygame.K_RIGHT:
+            case pg.KEYDOWN if st.game_active:
+                if event.key == pg.K_LEFT or \
+                   event.key == pg.K_RIGHT:
                     check(event.key)
                     paint()
 
             # Thirty second round timer
-            case pygame.USEREVENT if st.game_active:
+            case pg.USEREVENT if st.game_active:
                 timeout_counter -= 1
                 if timeout_counter == 0:
                     st.game_active = False

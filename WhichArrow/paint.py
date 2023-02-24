@@ -3,7 +3,7 @@
 # Mike Christle 2022
 # ---------------------------------------------------------------------------
 
-import pygame
+import pygame as pg
 import state as st
 
 from random import randrange
@@ -12,20 +12,20 @@ IMAGE_WIDTH = 600
 IMAGE_HEIGHT = 600
 
 # Initialize pygame and setup the window
-pygame.init()
-screen = pygame.display.set_mode((IMAGE_WIDTH, IMAGE_HEIGHT))
-pygame.display.set_caption('Which Arrow   V1.0')
+pg.init()
+screen = pg.display.set_mode((IMAGE_WIDTH, IMAGE_HEIGHT))
+pg.display.set_caption('Which Arrow   V1.1')
 
-HEADER_FONT = pygame.font.SysFont('Arial', 48)
-INFO_FONT = pygame.font.SysFont('Arial', 36)
+HEADER_FONT = pg.font.SysFont('Arial', 48)
+INFO_FONT = pg.font.SysFont('Arial', 36)
 
 BG_COLOR = 245, 222, 179
 BLACK = 0, 0, 0
 
-ARROW_RT = pygame.image.load('Images/arrow_rt.png')
-ARROW_LF = pygame.image.load('Images/arrow_lf.png')
-ARROW_UP = pygame.image.load('Images/arrow_up.png')
-ARROW_DN = pygame.image.load('Images/arrow_dn.png')
+ARROW_RT = pg.image.load('Images/arrow_rt.png')
+ARROW_LF = pg.image.load('Images/arrow_lf.png')
+ARROW_UP = pg.image.load('Images/arrow_up.png')
+ARROW_DN = pg.image.load('Images/arrow_dn.png')
 ARROWS = (ARROW_UP, ARROW_RT, ARROW_DN, ARROW_LF)
 
 PATTERN0 = ((0, 0), (0, 25), (0, 50), (0, 75), (0, 100))
@@ -49,7 +49,7 @@ def paint():
         paint_arrows()
     else:
         paint_score()
-    pygame.display.update()
+    pg.display.update()
 
 
 # ---------------------------------------------------------------------------
@@ -118,4 +118,4 @@ def paint_intro():
         screen.blit(text, rect)
         y += 50
 
-    pygame.display.update()
+    pg.display.update()

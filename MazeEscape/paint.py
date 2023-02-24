@@ -4,7 +4,7 @@
 # Mike Christle 2023
 # ---------------------------------------------------------------------------
 
-import pygame
+import pygame as pg
 import state as st
 
 
@@ -18,14 +18,14 @@ FLOOR = 0, VIEW_HALF_HEIGHT, VIEW_WIDTH, VIEW_HALF_HEIGHT
 walls = [(0, 0)] * VIEW_WIDTH
 
 # Initialize pygame and setup the window
-pygame.init()
-pygame.display.set_caption("Maze Escape   V1.0")
+pg.init()
+pg.display.set_caption("Maze Escape   V1.1")
 
-screen = pygame.display.set_mode((VIEW_WIDTH, VIEW_HEIGHT))
-view_image = pygame.Surface((VIEW_WIDTH, VIEW_HEIGHT))
+screen = pg.display.set_mode((VIEW_WIDTH, VIEW_HEIGHT))
+view_image = pg.Surface((VIEW_WIDTH, VIEW_HEIGHT))
 
-HEADER_FONT = pygame.font.SysFont('Arial', 64)
-INFO_FONT = pygame.font.SysFont('Arial', 36)
+HEADER_FONT = pg.font.SysFont('Arial', 64)
+INFO_FONT = pg.font.SysFont('Arial', 36)
 
 BLACK = 0, 0, 0
 FLOOR_COLOR = 80, 80, 80
@@ -50,22 +50,22 @@ def paint():
     else:
         screen.fill(RED1)
         paint_game_over()
-    pygame.display.update()
+    pg.display.update()
 
 
 # ---------------------------------------------------------------------------
 def paint_walls():
     """Paint the 3D walls."""
 
-    pygame.draw.rect(view_image, FLOOR_COLOR, FLOOR)
-    pygame.draw.rect(view_image, CEILING_COLOR, CEILING)
+    pg.draw.rect(view_image, FLOOR_COLOR, FLOOR)
+    pg.draw.rect(view_image, CEILING_COLOR, CEILING)
     for x, y in enumerate(walls):
         height, side = y
         height //= 2
         start = x, VIEW_HALF_HEIGHT - height
         stop = x, VIEW_HALF_HEIGHT + height
         color = COLORS[side]
-        pygame.draw.line(view_image, color, start, stop)
+        pg.draw.line(view_image, color, start, stop)
 
 
 # ---------------------------------------------------------------------------
@@ -98,7 +98,7 @@ def paint_intro():
         screen.blit(text, rect)
         y += 50
 
-    pygame.display.update()
+    pg.display.update()
 
 
 # ---------------------------------------------------------------------------

@@ -2,8 +2,9 @@
 # Maze Escape
 # Mike Christle 2023
 # ---------------------------------------------------------------------------
+
 from cell import Cell
-import numpy as np
+from numpy import zeros
 
 MAZE_SIZE = 8
 
@@ -11,7 +12,7 @@ maze = [[Cell(x, y) for x in range(MAZE_SIZE)] for y in range(MAZE_SIZE)]
 
 GRID_CELL = 4
 GRID_SIZE = (MAZE_SIZE * GRID_CELL) + 1
-grid = np.zeros((GRID_SIZE, GRID_SIZE), dtype = int)
+grid = zeros((GRID_SIZE, GRID_SIZE), dtype = int)
 
 game_active = False
 

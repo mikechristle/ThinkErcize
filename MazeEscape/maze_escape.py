@@ -78,25 +78,25 @@ def move_player(key):
         # Decode the angle to get x y deltas
         match a:
             case 0:
-                x += 1
+                x += 2
             case 1:
-                x += 1
-                y -= 1
+                x += 2
+                y -= 2
             case 2:
-                y -= 1
+                y -= 2
             case 3:
-                x -= 1
-                y -= 1
+                x -= 2
+                y -= 2
             case 4:
-                x -= 1
+                x -= 2
             case 5:
-                x -= 1
-                y += 1
+                x -= 2
+                y += 2
             case 6:
-                y += 1
+                y += 2
             case 7:
-                x += 1
-                y += 1
+                x += 2
+                y += 2
 
     # If the new cell is empty, move to that cell
     cell_state = st.grid[y][x]
@@ -115,6 +115,7 @@ def fill_grid():
 
     # Position the player in the corner of the maze
     st.game_active = True
+    st.angle = 0
     st.pos_x = st.GRID_CELL // 2
     st.pos_y = st.GRID_CELL // 2
 
@@ -152,6 +153,8 @@ def fill_grid():
     while True:
         x = randrange(st.GRID_SIZE)
         y = randrange(st.GRID_SIZE)
+        if (x & 1) == 1 or (y & 1) == 1:
+            continue
         if st.grid[y][x] == EMPTY:
             continue
 

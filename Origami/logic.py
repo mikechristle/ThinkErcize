@@ -4,7 +4,6 @@
 # ---------------------------------------------------------------------------
 
 import state as st
-import pygame
 
 from random import randrange, choice
 from paint import paint_pattern, paint

@@ -3,7 +3,7 @@
 # Mike Christle 2022
 # ---------------------------------------------------------------------------
 
-import pygame
+import pygame as pg
 import state as st
 
 CELL_SIZE = 60
@@ -12,17 +12,17 @@ IMAGE_HEIGHT = 10 * CELL_SIZE
 STATUS_LOC = (0, (9 * CELL_SIZE) + 10)
 
 # Initialize pygame and setup the window
-pygame.init()
-screen = pygame.display.set_mode((IMAGE_WIDTH, IMAGE_HEIGHT))
-pygame.display.set_caption('Origami   V1.3')
+pg.init()
+screen = pg.display.set_mode((IMAGE_WIDTH, IMAGE_HEIGHT))
+pg.display.set_caption('Origami   V1.4')
 
 BG_SIZE = 8 * CELL_SIZE
-bg_image = pygame.Surface((BG_SIZE, BG_SIZE))
+bg_image = pg.Surface((BG_SIZE, BG_SIZE))
 offset_x = 0
 offset_y = 0
 
-HEADER_FONT = pygame.font.SysFont('Arial', 64)
-INFO_FONT = pygame.font.SysFont('Arial', 32)
+HEADER_FONT = pg.font.SysFont('Arial', 64)
+INFO_FONT = pg.font.SysFont('Arial', 32)
 
 WHITE = 255, 255, 255
 BLACK = 0, 0, 0
@@ -32,11 +32,11 @@ DARK_GRAY = 96, 96, 96
 YELLOW = 255, 255, 0
 RED = 255, 0, 0
 
-IM_X = pygame.image.load(r'Images\X.png')
-IM_C = pygame.image.load(r'Images\Clubs.png')
-IM_D = pygame.image.load(r'Images\Diamond.png')
-IM_H = pygame.image.load(r'Images\Heart.png')
-IM_S = pygame.image.load(r'Images\Spades.png')
+IM_X = pg.image.load(r'Images\X.png')
+IM_C = pg.image.load(r'Images\Clubs.png')
+IM_D = pg.image.load(r'Images\Diamond.png')
+IM_H = pg.image.load(r'Images\Heart.png')
+IM_S = pg.image.load(r'Images\Spades.png')
 IMAGES = None, IM_C, IM_D, IM_H, IM_S, IM_X
 
 
@@ -63,7 +63,7 @@ def paint():
         text = INFO_FONT.render(text, True, BLACK)
         screen.blit(text, STATUS_LOC)
 
-    pygame.display.update()
+    pg.display.update()
 
 
 # ---------------------------------------------------------------------------
@@ -111,7 +111,7 @@ def paint_none():
     # Draw the border of the paper
     p0 = offset_x, offset_y
     wh = st.paper_w * CELL_SIZE, st.paper_h * CELL_SIZE
-    pygame.draw.rect(bg_image, BLACK, (p0, wh), width=3)
+    pg.draw.rect(bg_image, BLACK, (p0, wh), width=3)
 
 
 # ---------------------------------------------------------------------------
@@ -131,14 +131,14 @@ def paint_horz():
     # Draw the border of the paper
     p0 = offset_x, offset_y
     wh = st.paper_w * 2 * CELL_SIZE, st.paper_h * CELL_SIZE
-    pygame.draw.rect(bg_image, BLACK, (p0, wh), width=3)
+    pg.draw.rect(bg_image, BLACK, (p0, wh), width=3)
 
     # Draw a line for the fold
     x0 = offset_x + (st.paper_w * CELL_SIZE)
     y0 = offset_y
     x1 = offset_x + (st.paper_w * CELL_SIZE)
     y1 = offset_y + (st.paper_h * CELL_SIZE)
-    pygame.draw.line(bg_image, BLACK, (x0, y0), (x1, y1))
+    pg.draw.line(bg_image, BLACK, (x0, y0), (x1, y1))
 
 
 # ---------------------------------------------------------------------------
@@ -158,14 +158,14 @@ def paint_vert():
     # Draw the border of the paper
     p0 = offset_x, offset_y
     wh = st.paper_w * CELL_SIZE, st.paper_h * 2 * CELL_SIZE
-    pygame.draw.rect(bg_image, BLACK, (p0, wh), width=3)
+    pg.draw.rect(bg_image, BLACK, (p0, wh), width=3)
 
     # Draw a line for the fold
     x0 = offset_x
     y0 = offset_y + (st.paper_h * CELL_SIZE)
     x1 = offset_x + (st.paper_w * CELL_SIZE)
     y1 = offset_y + (st.paper_h * CELL_SIZE)
-    pygame.draw.line(bg_image, BLACK, (x0, y0), (x1, y1))
+    pg.draw.line(bg_image, BLACK, (x0, y0), (x1, y1))
 
 
 # ---------------------------------------------------------------------------
@@ -185,19 +185,19 @@ def paint_both():
     # Draw the border of the paper
     p0 = offset_x, offset_y
     wh = st.paper_w * 2 * CELL_SIZE, st.paper_h * 2 * CELL_SIZE
-    pygame.draw.rect(bg_image, BLACK, (p0, wh), width=3)
+    pg.draw.rect(bg_image, BLACK, (p0, wh), width=3)
 
     # Draw lines for the folds
     x0 = offset_x
     y0 = offset_y + (st.paper_h * CELL_SIZE)
     x1 = offset_x + (st.paper_w * 2 * CELL_SIZE)
     y1 = offset_y + (st.paper_h * CELL_SIZE)
-    pygame.draw.line(bg_image, BLACK, (x0, y0), (x1, y1))
+    pg.draw.line(bg_image, BLACK, (x0, y0), (x1, y1))
     x0 = offset_x + (st.paper_w * CELL_SIZE)
     y0 = offset_y
     x1 = offset_x + (st.paper_w * CELL_SIZE)
     y1 = offset_y + (st.paper_h * 2 * CELL_SIZE)
-    pygame.draw.line(bg_image, BLACK, (x0, y0), (x1, y1))
+    pg.draw.line(bg_image, BLACK, (x0, y0), (x1, y1))
 
 
 # ---------------------------------------------------------------------------
@@ -219,14 +219,14 @@ def paint_diag():
     # Draw the border of the paper
     p0 = offset_x, offset_y
     wh = w * CELL_SIZE, h * CELL_SIZE
-    pygame.draw.rect(bg_image, BLACK, (p0, wh), width=3)
+    pg.draw.rect(bg_image, BLACK, (p0, wh), width=3)
 
     # Draw a line for the fold
     x0 = offset_x
     y0 = offset_y
     x1 = offset_x + (w * CELL_SIZE)
     y1 = offset_y + (h * CELL_SIZE)
-    pygame.draw.line(bg_image, BLACK, (x0, y0), (x1, y1))
+    pg.draw.line(bg_image, BLACK, (x0, y0), (x1, y1))
 
 
 # ---------------------------------------------------------------------------
@@ -293,4 +293,4 @@ def show_intro():
         screen.blit(text, rect)
         y += 50
 
-    pygame.display.update()
+    pg.display.update()

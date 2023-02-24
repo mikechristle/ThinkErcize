@@ -3,7 +3,7 @@
 # Mike Christle 2022
 # ---------------------------------------------------------------------------
 
-import pygame
+import pygame as pg
 import state as st
 
 CELL_SIZE = 50
@@ -17,17 +17,17 @@ OFFSET_X = 100 + (3 * CELL_SIZE // 2)
 OFFSET_Y = 20 + (3 * CELL_SIZE // 2)
 
 # Initialize pygame and setup the window
-pygame.init()
-screen = pygame.display.set_mode((IMAGE_WIDTH, IMAGE_HEIGHT))
-pygame.display.set_caption('Tile Match   V1.1')
+pg.init()
+screen = pg.display.set_mode((IMAGE_WIDTH, IMAGE_HEIGHT))
+pg.display.set_caption('Tile Match   V1.2')
 
 BG_SIZE = 8 * CELL_SIZE
-bg_image = pygame.Surface((BG_SIZE, BG_SIZE))
+bg_image = pg.Surface((BG_SIZE, BG_SIZE))
 offset_x = 0
 offset_y = 0
 
-HEADER_FONT = pygame.font.SysFont('Arial', 60)
-INFO_FONT = pygame.font.SysFont('Arial', 28)
+HEADER_FONT = pg.font.SysFont('Arial', 60)
+INFO_FONT = pg.font.SysFont('Arial', 28)
 
 WHITE = 255, 255, 255
 BLACK = 0, 0, 0
@@ -43,13 +43,13 @@ STAT1_LOC = 200, 560
 HELP_MSG = INFO_FONT.render('Tall = Color    Wide = Shape', True, BLACK)
 STAT1_MSG = INFO_FONT.render('Click to start a new round', True, BLACK)
 
-IM_CIRCLE = pygame.image.load(r'Images\Circle.png')
-IM_DIAMOND = pygame.image.load(r'Images\Diamond.png')
-IM_SQUARE = pygame.image.load(r'Images\Squares.png')
+IM_CIRCLE = pg.image.load(r'Images\Circle.png')
+IM_DIAMOND = pg.image.load(r'Images\Diamond.png')
+IM_SQUARE = pg.image.load(r'Images\Squares.png')
 IMAGES = None, None, IM_SQUARE, IM_DIAMOND, IM_CIRCLE
 
-VERT_RECT = pygame.Rect(0, 0, CELL_SIZE - 14, CELL_SIZE + 14)
-HORZ_RECT = pygame.Rect(0, 0, CELL_SIZE + 14, CELL_SIZE - 14)
+VERT_RECT = pg.Rect(0, 0, CELL_SIZE - 14, CELL_SIZE + 14)
+HORZ_RECT = pg.Rect(0, 0, CELL_SIZE + 14, CELL_SIZE - 14)
 RECTS = VERT_RECT, HORZ_RECT
 
 TIMER_LOC = 80 + (5 * CELL_SIZE), 4 * CELL_SIZE
@@ -60,7 +60,7 @@ def paint():
     """Paint the screen."""
 
     screen.fill(GRAY)
-    pygame.draw.rect(screen, BLACK, FIELD_RECT)
+    pg.draw.rect(screen, BLACK, FIELD_RECT)
 
     if st.state == st.ST_PLAY:
         paint_tiles()
@@ -76,7 +76,7 @@ def paint():
         screen.blit(msg, STAT0_LOC)
         screen.blit(STAT1_MSG, STAT1_LOC)
 
-    pygame.display.update()
+    pg.display.update()
 
 
 # ---------------------------------------------------------------------------
@@ -98,11 +98,11 @@ def paint_tile(tile):
     rect.center = tile.x0, tile.y0
     if tile.shape != st.BORDER:
         color = COLORS[tile.color]
-        pygame.draw.rect(screen, color, rect)
+        pg.draw.rect(screen, color, rect)
     shape = IMAGES[tile.shape]
     if shape != None:
         screen.blit(shape,  (rect.center[0] - 10, rect.center[1] - 10))
-    pygame.draw.rect(screen, WHITE, rect, width=1)
+    pg.draw.rect(screen, WHITE, rect, width=1)
 
 
 # ---------------------------------------------------------------------------
@@ -163,4 +163,4 @@ def show_intro():
         screen.blit(text, rect)
         y += 50
 
-    pygame.display.update()
+    pg.display.update()

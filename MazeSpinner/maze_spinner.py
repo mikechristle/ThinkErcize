@@ -4,16 +4,16 @@
 # Mike Christle 2022
 # ---------------------------------------------------------------------------
 
-import sys
-import pygame
+import pygame as pg
 import state as st
-import random
-import time
 
+from time import time
+from random import randrange, choice
+from sys import exit
 from make_maze import make_maze
 from paint import paint, paint_intro, init_maze_image
 
-pygame.time.set_timer(pygame.USEREVENT, 1000)
+pg.time.set_timer(pg.USEREVENT, 1000)
 
 angle = 0.0
 count = 0
@@ -33,28 +33,28 @@ def main():
     while True:
 
         # Get all pygame events
-        for event in pygame.event.get():
+        for event in pg.event.get():
             match event.type:
 
                 # Exit if window is closed
-                case pygame.QUIT:
-                    sys.exit()
+                case pg.QUIT:
+                    exit()
 
                 # Start a new game when space bar is pressed
-                case pygame.KEYDOWN if not st.game_active:
-                    if event.key == pygame.K_SPACE:
+                case pg.KEYDOWN if not st.game_active:
+                    if event.key == pg.K_SPACE:
                         make_maze()
                         init_maze_image()
                         start_game()
                         paint()
 
                 # Press arrow keys to move ball
-                case pygame.KEYDOWN if st.game_active:
+                case pg.KEYDOWN if st.game_active:
                     move_ball(event.key)
                     paint()
 
                 # One second timer event to rotate maze
-                case pygame.USEREVENT if st.game_active:
+                case pg.USEREVENT if st.game_active:
                     rotate_maze()
                     paint()
 
@@ -69,8 +69,8 @@ def rotate_maze():
         st.rotation_angle += angle
         count -= 1
     else:
-        angle = random.choice((20.0, -20.0))
-        count = random.randrange(2, 10)
+        angle = choice((20.0, -20.0))
+        count = randrange(2, 10)
 
 
 # ---------------------------------------------------------------------------
@@ -79,19 +79,19 @@ def move_ball(key):
 
     cell = st.maze[st.ball_y][st.ball_x]
 
-    if key == pygame.K_UP and cell.top:
+    if key == pg.K_UP and cell.top:
         st.ball_y -= 1
-    elif key == pygame.K_DOWN and cell.bot:
+    elif key == pg.K_DOWN and cell.bot:
         st.ball_y += 1
-    elif key == pygame.K_RIGHT and cell.rit:
+    elif key == pg.K_RIGHT and cell.rit:
         st.ball_x += 1
-    elif key == pygame.K_LEFT and cell.lft:
+    elif key == pg.K_LEFT and cell.lft:
         st.ball_x -= 1
 
     # Check for ball at exit cell
     if st.ball_y == EXIT_Y and st.ball_x == EXIT_X:
         st.game_active = False
-        end_time = time.time()
+        end_time = time()
         st.elapsed_time = end_time - start_time
 
 
@@ -107,7 +107,7 @@ def start_game():
     st.rotation_angle = 0.0
     angle = 20.0
     count = 5
-    start_time = time.time()
+    start_time = time()
 
 
 # ---------------------------------------------------------------------------

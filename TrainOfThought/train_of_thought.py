@@ -1,12 +1,11 @@
 # ---------------------------------------------------------------------------
-# ThinkErcise
+# Train of Thought
 # Mike Christle 2022
 # ---------------------------------------------------------------------------
 
-import pygame
+import pygame as pg
 import state as st
 
-from sys import exit
 from paint import paint, paint_btns, get_xy, paint_intro
 from logic import click_switch, add_trains, move_trains, start_game
 
@@ -18,21 +17,21 @@ paint_intro()
 paint()
 
 # 0.5 Second timer event to move trains
-pygame.time.set_timer(pygame.USEREVENT, 500)
+pg.time.set_timer(pg.USEREVENT, 500)
 
 while True:
 
     # Get all pygame events
-    for event in pygame.event.get():
+    for event in pg.event.get():
         match event.type:
 
             # Exit if window is closed
-            case pygame.QUIT:
+            case pg.QUIT:
                 exit()
 
             # If game active and clicked on game image,
             # check for a switch.
-            case pygame.MOUSEBUTTONDOWN if st.game_active:
+            case pg.MOUSEBUTTONDOWN if st.game_active:
                 x, y = get_xy(event.pos)
                 if y < st.GRID_HEIGHT:
                     click_switch(x, y)
@@ -40,7 +39,7 @@ while True:
 
             # If game not active and clock on button bar,
             # check for buttons.
-            case pygame.MOUSEBUTTONDOWN if not st.game_active:
+            case pg.MOUSEBUTTONDOWN if not st.game_active:
                 x, y = get_xy(event.pos)
                 if y == st.GRID_HEIGHT:
                     if x < 6:
@@ -52,7 +51,7 @@ while True:
 
             # On each timer tick move trains
             # Every fourth tick, add a new train
-            case pygame.USEREVENT if st.game_active:
+            case pg.USEREVENT if st.game_active:
                 move_trains()
                 if add_train_cntr == 0:
                     add_train_cntr = 4

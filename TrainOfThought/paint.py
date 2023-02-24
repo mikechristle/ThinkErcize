@@ -1,11 +1,11 @@
 # ---------------------------------------------------------------------------
-# ThinkErcise
+# Train of Thought
 # Paint the screen
 # Mike Christle 2022
 # ---------------------------------------------------------------------------
 
 import state as st
-import pygame
+import pygame as pg
 import images
 
 from enum_types import DirT, FuncT
@@ -16,16 +16,16 @@ IMAGE_WIDTH = st.GRID_WIDTH * CELL_SIZE
 IMAGE_HEIGHT = st.GRID_HEIGHT * CELL_SIZE
 
 # Initialize pygame and setup the window
-pygame.init()
-screen = pygame.display.set_mode((IMAGE_WIDTH, IMAGE_HEIGHT + CELL_SIZE))
-pygame.display.set_caption('Train Of Thought   V1.1')
+pg.init()
+screen = pg.display.set_mode((IMAGE_WIDTH, IMAGE_HEIGHT + CELL_SIZE))
+pg.display.set_caption('Train Of Thought   V1.2')
 
-bg_image = pygame.Surface((IMAGE_WIDTH, IMAGE_HEIGHT))
-btn_image = pygame.Surface((IMAGE_WIDTH, CELL_SIZE))
+bg_image = pg.Surface((IMAGE_WIDTH, IMAGE_HEIGHT))
+btn_image = pg.Surface((IMAGE_WIDTH, CELL_SIZE))
 
-BUTTON_FONT = pygame.font.SysFont('Arial', 36)
-HEADER_FONT = pygame.font.SysFont('Arial', 72)
-INFO_FONT = pygame.font.SysFont('Arial', 48)
+BUTTON_FONT = pg.font.SysFont('Arial', 36)
+HEADER_FONT = pg.font.SysFont('Arial', 72)
+INFO_FONT = pg.font.SysFont('Arial', 48)
 
 BG_COLOR = 107, 142, 35
 WHITE = (255, 255, 255)
@@ -92,7 +92,7 @@ def paint():
                 img = images.TRAIN_IMGS[color][direction.value]
         screen.blit(img, (x * CELL_SIZE, y * CELL_SIZE))
 
-    pygame.display.flip()
+    pg.display.flip()
 
 
 # ---------------------------------------------------------------------------
@@ -126,7 +126,7 @@ def paint_intro():
         bg_image.blit(text, rect)
         y += 60
 
-    pygame.display.update()
+    pg.display.update()
 
 
 # ---------------------------------------------------------------------------

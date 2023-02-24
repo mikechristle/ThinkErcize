@@ -3,7 +3,7 @@
 # Mike Christle 2022
 # ---------------------------------------------------------------------------
 
-import pygame
+import pygame as pg
 import state as st
 
 from time import sleep
@@ -17,21 +17,21 @@ IMAGE_HEIGHT = CELL_COUNT * CELL_SIZE
 STATUS_HEIGHT = CELL_SIZE // 2
 
 # Initialize pygame and setup the window
-pygame.init()
-screen = pygame.display.set_mode((IMAGE_WIDTH, IMAGE_HEIGHT + STATUS_HEIGHT))
-pygame.display.set_caption('Laser Path   V1.2')
+pg.init()
+screen = pg.display.set_mode((IMAGE_WIDTH, IMAGE_HEIGHT + STATUS_HEIGHT))
+pg.display.set_caption('Laser Path   V1.2')
 
-bg_image = pygame.Surface((IMAGE_WIDTH, IMAGE_HEIGHT))
-st_image = pygame.Surface((IMAGE_WIDTH, STATUS_HEIGHT))
-count_image = pygame.Surface((CELL_SIZE // 2, CELL_SIZE // 2))
+bg_image = pg.Surface((IMAGE_WIDTH, IMAGE_HEIGHT))
+st_image = pg.Surface((IMAGE_WIDTH, STATUS_HEIGHT))
+count_image = pg.Surface((CELL_SIZE // 2, CELL_SIZE // 2))
 
 laser_path = []
 
 HEADER_FONT_SIZE = CELL_SIZE #// 2
 INFO_FONT_SIZE = CELL_SIZE // 3
-HEADER_FONT = pygame.font.SysFont('Arial', HEADER_FONT_SIZE)
-INFO_FONT = pygame.font.SysFont('Arial', INFO_FONT_SIZE)
-COUNT_FONT = pygame.font.SysFont('Arial', CELL_SIZE)
+HEADER_FONT = pg.font.SysFont('Arial', HEADER_FONT_SIZE)
+INFO_FONT = pg.font.SysFont('Arial', INFO_FONT_SIZE)
+COUNT_FONT = pg.font.SysFont('Arial', CELL_SIZE)
 
 BG_COLOR = 107, 142, 35
 WHITE = 255, 255, 255
@@ -57,7 +57,7 @@ def paint():
         case st.ST_WAIT:
             show_laser()
 
-    pygame.display.update()
+    pg.display.update()
 
 
 # ---------------------------------------------------------------------------
@@ -78,7 +78,7 @@ def show_laser():
                     x2 = (x * CELL_SIZE) + HALF_CELL_SIZE
                     y2 = (y * CELL_SIZE) + 4
                     pts = (x0, y0), (x1, y1), (x2, y2)
-                    pygame.draw.polygon(screen, RED, pts)
+                    pg.draw.polygon(screen, RED, pts)
                 case st.LASER_S:
                     x0 = (x * CELL_SIZE) + 4
                     y0 = (y * CELL_SIZE)
@@ -87,7 +87,7 @@ def show_laser():
                     x2 = (x * CELL_SIZE) + HALF_CELL_SIZE
                     y2 = (y * CELL_SIZE) + CELL_SIZE - 4
                     pts = (x0, y0), (x1, y1), (x2, y2)
-                    pygame.draw.polygon(screen, RED, pts)
+                    pg.draw.polygon(screen, RED, pts)
                 case st.LASER_E:
                     x0 = (x * CELL_SIZE)
                     y0 = (y * CELL_SIZE) + 4
@@ -96,7 +96,7 @@ def show_laser():
                     x2 = (x * CELL_SIZE) + CELL_SIZE - 4
                     y2 = (y * CELL_SIZE) + HALF_CELL_SIZE
                     pts = (x0, y0), (x1, y1), (x2, y2)
-                    pygame.draw.polygon(screen, RED, pts)
+                    pg.draw.polygon(screen, RED, pts)
                 case st.LASER_W:
                     x0 = (x * CELL_SIZE) + CELL_SIZE
                     y0 = (y * CELL_SIZE) + 4
@@ -105,7 +105,7 @@ def show_laser():
                     x2 = (x * CELL_SIZE) + 4
                     y2 = (y * CELL_SIZE) + HALF_CELL_SIZE
                     pts = (x0, y0), (x1, y1), (x2, y2)
-                    pygame.draw.polygon(screen, RED, pts)
+                    pg.draw.polygon(screen, RED, pts)
 
 
 # ---------------------------------------------------------------------------
@@ -126,7 +126,7 @@ def new_game():
 
     text = INFO_FONT.render('NEW GAME', True, WHITE)
     screen.blit(text, (400, (CELL_SIZE * 7) + 5))
-    pygame.display.update()
+    pg.display.update()
 
 
 # ---------------------------------------------------------------------------
@@ -136,7 +136,7 @@ def show_click():
     w = CELL_SIZE - 2
     x0 = (st.click_x * CELL_SIZE) + 1
     y0 = (st.click_y * CELL_SIZE) + 1
-    pygame.draw.rect(screen, DARK_GRAY, (x0, y0, w, w))
+    pg.draw.rect(screen, DARK_GRAY, (x0, y0, w, w))
 
 
 # ---------------------------------------------------------------------------
@@ -154,13 +154,13 @@ def show_mirrors():
                     y0 = (y * CELL_SIZE) + 10
                     x1 = x0 + CELL_SIZE - 20
                     y1 = y0 + CELL_SIZE - 20
-                    pygame.draw.line(screen, WHITE, (x0, y0), (x1, y1), width=7)
+                    pg.draw.line(screen, WHITE, (x0, y0), (x1, y1), width=7)
                 case st.MIRROR1:
                     x0 = (x * CELL_SIZE) + CELL_SIZE - 10
                     y0 = (y * CELL_SIZE) + 10
                     x1 = x0 - CELL_SIZE + 20
                     y1 = y0 + CELL_SIZE - 20
-                    pygame.draw.line(screen, WHITE, (x0, y0), (x1, y1), width=7)
+                    pg.draw.line(screen, WHITE, (x0, y0), (x1, y1), width=7)
 
 
 # ---------------------------------------------------------------------------
@@ -171,7 +171,7 @@ def show_count(count):
     rect = text.get_rect()
     rect.center = IMAGE_WIDTH // 2, IMAGE_HEIGHT // 2
     screen.blit(text, rect)
-    pygame.display.update()
+    pg.display.update()
 
 
 # ---------------------------------------------------------------------------
@@ -219,7 +219,7 @@ def show_intro():
 
     screen.blit(bg_image, (0, 0))
     screen.blit(st_image, (0, CELL_SIZE * 7))
-    pygame.display.update()
+    pg.display.update()
     init_background()
 
 
@@ -238,7 +238,7 @@ def init_background():
                 color = GREEN
             x0 = (x * CELL_SIZE) + 1
             y0 = (y * CELL_SIZE) + 1
-            pygame.draw.rect(bg_image, color, (x0, y0, w, w))
+            pg.draw.rect(bg_image, color, (x0, y0, w, w))
 
 
 # -----------------------------------------------------------------------
@@ -252,10 +252,10 @@ def fire_laser():
         color = RED if color_flag else YELLOW
         color_flag = not color_flag
         show_click()
-        pygame.draw.lines(screen, color, False, laser_path, width=5)
+        pg.draw.lines(screen, color, False, laser_path, width=5)
         show_mirrors()
         show_laser()
-        pygame.display.flip()
+        pg.display.flip()
         sleep(0.1)
 
     laser_path.clear()

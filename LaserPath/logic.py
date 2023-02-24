@@ -3,11 +3,10 @@
 # Mike Christle 2022
 # ---------------------------------------------------------------------------
 
-import random
 import state as st
 
 from paint import laser_path, laser_path_append
-from random import randrange
+from random import randrange, choice
 
 MIRRORS = (st.MIRROR1, st.MIRROR2)
 LASER_LOCS = (
@@ -48,7 +47,7 @@ def set_laser():
     while True:
 
         # Select a random laser location
-        x, y, d = random.choice(LASER_LOCS)
+        x, y, d = choice(LASER_LOCS)
 
         # Trace the path from this location
         st.grid[y][x] = d
@@ -143,7 +142,7 @@ def set_mirrors():
         x = randrange(1, 6)
         y = randrange(1, 6)
         if st.grid[y][x] == st.EMPTY:
-            st.grid[y][x] = random.choice(MIRRORS)
+            st.grid[y][x] = choice(MIRRORS)
             count -= 1
 
 

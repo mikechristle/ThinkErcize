@@ -1,6 +1,8 @@
 # ThinkErcize
 A set of brain exercises to enhance memory, attention and problem-solving skills.
 
+Feedback welcome [feedback@christle.us](mailto:feedback@christle.us).
+
 ## Memory Games
 
 ### Memory Patterns

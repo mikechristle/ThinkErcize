@@ -14,8 +14,8 @@ py.init()
 screen = py.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 py.display.set_caption("MathTest   V1.0")
 
-HEADER_FONT = py.font.SysFont('Arial', 64)
-INFO_FONT = py.font.SysFont('Arial', 32)
+HEADER_FONT = py.font.SysFont('Arial', 60)
+INFO_FONT = py.font.SysFont('Arial', 28)
 TEXT_FONT = py.font.SysFont('Arial', 64)
 
 WHITE = 255, 255, 255
@@ -80,7 +80,7 @@ def paint_intro():
         "You must solve each and decide which has the greater value.",
         "If the right is greater, press the right arrow key.",
         "If the left is greater, press the left arrow key.",
-        "I they are the same, press the up or down arrow keys.",
+        "If they are the same, press up or down arrow keys.",
         "",
         "Press space bar to start."
     )

@@ -135,14 +135,15 @@ def show_intro():
     """Paint the intro text screen."""
 
     intro = (
-        'The object of this game is to eliminate all of the tiles',
-        'as fast as possible. Tiles have one of three colors,',
-        'and one of three shaped inlays.',
+        'The object of this game is to eliminate all of the',
+        'tiles as fast as possible. Tiles have one of three',
+        'colors, and one of three shaped inlays.',
         'As each new tile is displayed on the left side,',
-        'you must place it on the grid next to matching tiles.',
-        'If the new tile is tall then the colors must match.',
-        'If the new tile is wide then the inlays must match.',
-        'Matching tiles are then removed from the grid.',
+        'you must place it on the grid next to matching',
+        'tiles. If the new tile is tall then the colors',
+        'must match. If the new tile is wide then the',
+        'inlays must match. Matching tiles are then',
+        'removed from the grid.',
         '',
         'Click here to start.',
     )
@@ -161,6 +162,6 @@ def show_intro():
         rect = text.get_rect()
         rect.center = (IMAGE_WIDTH // 2, y)
         screen.blit(text, rect)
-        y += 50
+        y += 45
 
     pg.display.update()

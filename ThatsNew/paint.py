@@ -23,8 +23,8 @@ pg.init()
 screen = pg.display.set_mode((IMAGE_WIDTH, IMAGE_HEIGHT))
 pg.display.set_caption("What's New   V1.1")
 
-HEADER_FONT = pg.font.SysFont('Arial', 64)
-INFO_FONT = pg.font.SysFont('Arial', 32)
+HEADER_FONT = pg.font.SysFont('Arial', 56)
+INFO_FONT = pg.font.SysFont('Arial', 28)
 
 WHITE = 255, 255, 255
 BLACK = 0, 0, 0
@@ -91,7 +91,8 @@ def paint_intro():
     intro = (
         "Can you remember which objects",
         "you have seen before.",
-        "Click on a new object.",
+        "Each time the objects are",
+        "scrambled, click on a new object.",
         "",
         "Click here to start."
     )
@@ -105,12 +106,12 @@ def paint_intro():
     screen.blit(text, rect)
 
     # Paint each line ot intro text
-    y = 120
+    y = 100
     for line in intro:
         text = INFO_FONT.render(line, True, BLUE)
         rect = text.get_rect()
         rect.center = (IMAGE_WIDTH // 2, y)
         screen.blit(text, rect)
-        y += 60
+        y += 50
 
     pg.display.update()

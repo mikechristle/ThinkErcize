@@ -27,7 +27,7 @@ count_image = pg.Surface((CELL_SIZE // 2, CELL_SIZE // 2))
 
 laser_path = []
 
-HEADER_FONT_SIZE = CELL_SIZE #// 2
+HEADER_FONT_SIZE = CELL_SIZE // 2
 INFO_FONT_SIZE = CELL_SIZE // 3
 HEADER_FONT = pg.font.SysFont('Arial', HEADER_FONT_SIZE)
 INFO_FONT = pg.font.SysFont('Arial', INFO_FONT_SIZE)
@@ -186,16 +186,17 @@ def show_intro():
     """Paint the intro text screen."""
 
     intro = (
-        'The purpose of this game is to develop your short',
-        'term memory. For each of 10 rounds, a set of diagonal',
-        'mirrors will be briefly displayed. Then the mirrors',
-        'are hidden and a laser cannon is displayed. You must',
-        'determine at which point the laser beam will exit the',
-        'grid, click on this gray square. If you are correct',
-        'you get a point for each mirror on the grid, and the',
-        'number of mirrors is increased. If you miss the number',
-        'of mirrors is decreased. Good luck.',
-        '',
+        'The purpose of this game is to develop your',
+        'short term memory. For each of 10 rounds, a',
+        'set of diagonal mirrors will be briefly',
+        'displayed. Then the mirrors are hidden and a',
+        'laser cannon is displayed. You must determine',
+        ' at which point the laser beam will exit the',
+        'grid, click on this gray square. If you are',
+        'correct you get a point for each mirror on',
+        'the grid, and the number of mirrors is',
+        'increased. If you miss the number of mirrors',
+        'is decreased. Good luck.',
         'Click here to start.',
     )
 
@@ -209,7 +210,7 @@ def show_intro():
     bg_image.blit(text, rect)
 
     # Paint each line ot intro text
-    y = 120
+    y = 80
     for line in intro:
         text = INFO_FONT.render(line, True, WHITE)
         rect = text.get_rect()

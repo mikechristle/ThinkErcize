@@ -148,7 +148,7 @@ def paint_btns():
     text = BUTTON_FONT.render('START', True, WHITE)
     rect = text.get_rect()
     rect.top = 0
-    rect.left = (st.GRID_WIDTH - 3) * CELL_SIZE
+    rect.left = (st.GRID_WIDTH - 4) * CELL_SIZE
     btn_image.blit(text, rect)
 
     # Paint score

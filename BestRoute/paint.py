@@ -35,7 +35,7 @@ START_X0 = 3 * IMAGE_WIDTH // 4
 # Initialize pygame and setup the window
 py.init()
 screen = py.display.set_mode((IMAGE_WIDTH, IMAGE_HEIGHT))
-py.display.set_caption('Best Route   V1.2')
+py.display.set_caption('Best Route   V1.3')
 
 bg_image = py.Surface((IMAGE_WIDTH, IMAGE_HEIGHT))
 offset = 0
@@ -206,15 +206,17 @@ def show_intro():
     """Paint the intro text screen."""
 
     intro = (
-        'Your job is to find stray dogs and return them',
-        'to their homes. You have a small car, so you',
-        'can only carry up to three dogs at a time.',
-        'Since you don\'t have all day, you must find',
-        'the shortest route possible.',
+        'Your job is to find stray dogs and return',
+        'them to their homes. You have a small',
+        'car, so you can only carry up to three',
+        'dogs at a time. Since you don\'t have all',
+        'day, you must find the shortest route',
+        'possible.',
         '',
-        'Your position is marked by the car. To make it',
-        'move, click on a dog or a house and it will',
-        'drive to that position by the shortest path.',
+        'Your position is marked by the car.',
+        'To make it move, click on a dog or',
+        'a house and it will drive to that',
+        'position by the shortest path.',
         '',
         'Click to start game.',
     )

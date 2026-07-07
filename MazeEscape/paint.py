@@ -24,8 +24,9 @@ pg.display.set_caption("Maze Escape   V1.1")
 screen = pg.display.set_mode((VIEW_WIDTH, VIEW_HEIGHT))
 view_image = pg.Surface((VIEW_WIDTH, VIEW_HEIGHT))
 
-HEADER_FONT = pg.font.SysFont('Arial', 64)
-INFO_FONT = pg.font.SysFont('Arial', 36)
+HEADER_FONT = pg.font.SysFont('Arial', 60)
+INFO_FONT = pg.font.SysFont('Arial', 32)
+TEXT_FONT = pg.font.SysFont('Arial', 36)
 
 BLACK = 0, 0, 0
 FLOOR_COLOR = 80, 80, 80
@@ -115,7 +116,7 @@ def paint_game_over():
 
     y = 150
     for line in intro:
-        text = INFO_FONT.render(line, True, GREEN0)
+        text = TEXT_FONT.render(line, True, GREEN0)
         rect = text.get_rect()
         rect.center = (VIEW_WIDTH // 2, y)
         screen.blit(text, rect)

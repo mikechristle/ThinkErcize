@@ -26,8 +26,8 @@ screen = pg.display.set_mode((IMAGE_WIDTH, IMAGE_HEIGHT))
 pg.display.set_caption('Word Color   V1.1')
 
 WORD_FONT = pg.font.SysFont('Arial', 80)
-HEADER_FONT = pg.font.SysFont('Arial', 64)
-INFO_FONT = pg.font.SysFont('Arial', 36)
+HEADER_FONT = pg.font.SysFont('Arial', 56)
+INFO_FONT = pg.font.SysFont('Arial', 28)
 
 BG_COLOR = 220, 220, 220
 BLACK = 0, 0, 0
@@ -87,8 +87,8 @@ def paint_intro():
 
     intro = (
         'In this game you must determine if the',
-        'meaning of the word on the left matches the',
-        'color of the word on the right.',
+        'meaning of the word on the left matches',
+        'the color of the word on the right.',
         'If they match, press the right arrow key.',
         'If they do not match, press the left arrow key.',
         'You have 30 seconds for each round.',
@@ -110,6 +110,6 @@ def paint_intro():
         rect = text.get_rect()
         rect.center = (IMAGE_WIDTH // 2, y)
         screen.blit(text, rect)
-        y += 45
+        y += 42
 
     pg.display.update()

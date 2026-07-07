@@ -16,13 +16,13 @@ COUNT_Y = (IMAGE_HEIGHT - CELL_SIZE) // 2
 COUNT_RECT = COUNT_X, COUNT_Y, CELL_SIZE, CELL_SIZE
 COUNT_LOC = COUNT_X + 20, COUNT_Y + 8
 
-# Initialize pygame and setup the window
+# Initialize pygame and set up the window
 pg.init()
 screen = pg.display.set_mode((IMAGE_WIDTH, IMAGE_HEIGHT + STATUS_HEIGHT))
 pg.display.set_caption('Digit Order   V1.2')
 
-HEADER_FONT = pg.font.SysFont('Arial', 52)
-TEXT_FONT = pg.font.SysFont('Arial', 30)
+HEADER_FONT = pg.font.SysFont('Arial', 48)
+TEXT_FONT = pg.font.SysFont('Arial', 26)
 NUMBER_FONT = pg.font.SysFont('Arial', 32)
 STATUS_FONT = pg.font.SysFont('Arial', 30)
 

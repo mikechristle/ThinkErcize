@@ -23,8 +23,8 @@ bg_image = pg.Surface((BG_SIZE, BG_SIZE))
 offset_x = 0
 offset_y = 0
 
-HEADER_FONT = pg.font.SysFont('Arial', 48)
-INFO_FONT = pg.font.SysFont('Arial', 32)
+HEADER_FONT = pg.font.SysFont('Arial', 42)
+INFO_FONT = pg.font.SysFont('Arial', 28)
 STATUS_FONT = pg.font.SysFont('Arial', 26)
 
 BG_COLOR = 255, 255, 255

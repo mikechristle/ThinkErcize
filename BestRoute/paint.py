@@ -223,7 +223,7 @@ def show_intro():
 
     # Paint the game title
     screen.fill(BG_COLOR)
-    text = HEADER_FONT.render('Digit Order', True, WHITE)
+    text = HEADER_FONT.render('Best Route', True, WHITE)
     rect = text.get_rect()
     rect.center = (IMAGE_WIDTH // 2, 30)
     screen.blit(text, rect)

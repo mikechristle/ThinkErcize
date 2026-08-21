@@ -11,7 +11,7 @@ from sys import exit
 from paint import paint, get_xy, show_intro, paint_count
 from logic import start_game, start_cycle, click
 
-# 0.25 Second timer event
+# 250 mSec timer event
 pg.time.set_timer(pg.USEREVENT, 250)
 
 show_intro()
@@ -39,24 +39,25 @@ while True:
                 if st.cycle == 10:
                     st.state = st.ST_IDLE
                     paint()
+                    print(f'digit_order {st.score}')
                 else:
                     delay_count -= 1
                     if delay_count == 0:
                         st.cycle += 1
                         st.state = st.ST_SHOW
-                        delay_count = 46
+                        delay_count = 60
 
             # Timer event generated delays
             case [pg.USEREVENT, st.ST_SHOW]:
                 delay_count -= 1
                 match delay_count:
-                    case 44:
+                    case 57:
                         paint_count('3')
-                    case 40:
+                    case 54:
                         paint_count('2')
-                    case 36:
+                    case 51:
                         paint_count('1')
-                    case 32:
+                    case 48:
                         delay_count = 4 + st.count
                         start_cycle()
                         paint()

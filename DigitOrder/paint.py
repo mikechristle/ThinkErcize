@@ -19,7 +19,7 @@ COUNT_LOC = COUNT_X + 20, COUNT_Y + 8
 # Initialize pygame and set up the window
 pg.init()
 screen = pg.display.set_mode((IMAGE_WIDTH, IMAGE_HEIGHT + STATUS_HEIGHT))
-pg.display.set_caption('Digit Order   V1.2')
+pg.display.set_caption('Digit Order   V1.3')
 
 HEADER_FONT = pg.font.SysFont('Arial', 48)
 TEXT_FONT = pg.font.SysFont('Arial', 26)
@@ -81,7 +81,7 @@ def paint_number(x, y, number):
 
 # ---------------------------------------------------------------------------
 def paint_count(count):
-    """Paint the count down counter."""
+    """Paint the count-down counter."""
 
     screen.fill(BG_COLOR)
     text = HEADER_FONT.render(count, True, YELLOW)

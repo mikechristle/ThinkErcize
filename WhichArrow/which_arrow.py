@@ -7,6 +7,7 @@ import pygame as pg
 import state as st
 
 from paint import paint, paint_intro
+from time import time
 
 DECODER = {
     pg.K_UP: 0,
@@ -18,8 +19,6 @@ DECODER = {
 # Initialize window with instructions
 paint_intro()
 
-# 1.0 Second timer event for 45 second game timer
-pg.time.set_timer(pg.USEREVENT, 1000)
 timer = 0
 
 while True:
@@ -37,6 +36,7 @@ while True:
                 if event.key == pg.K_SPACE:
                     st.score = 0
                     st.total = 0
+                    st.run_time = time()
                     st.game_active = True
                     timer = 45
                     paint()
@@ -47,11 +47,8 @@ while True:
                 if arrow == st.main_arrow:
                     st.score += 1
                 st.total += 1
-                paint()
-
-            # End of game timer
-            case pg.USEREVENT:
-                timer -= 1
-                if timer == 0:
+                if st.total == 100:
+                    st.run_time = time() - st.run_time
                     st.game_active = False
-                    paint()
+                    print(f'which_arrow {st.score} {st.run_time:.1f}')
+                paint()

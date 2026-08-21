@@ -11,10 +11,10 @@ from random import randrange
 IMAGE_WIDTH = 600
 IMAGE_HEIGHT = 600
 
-# Initialize pygame and setup the window
+# Initialize pygame and set up the window
 pg.init()
 screen = pg.display.set_mode((IMAGE_WIDTH, IMAGE_HEIGHT))
-pg.display.set_caption('Which Arrow   V1.1')
+pg.display.set_caption('Which Arrow   V1.2')
 
 HEADER_FONT = pg.font.SysFont('Arial', 48)
 INFO_FONT = pg.font.SysFont('Arial', 36)
@@ -73,16 +73,22 @@ def paint_arrows():
 def paint_score():
     """Paint the score and message to start new game."""
 
-    text = f'Score {st.score}   Total {st.total}'
+    text = f'Score {st.score} out of 100.'
     text = HEADER_FONT.render(text, True, BLACK)
     rect = text.get_rect()
-    rect.center = 300, 250
+    rect.center = 300, 200
     screen.blit(text, rect)
 
-    text = f'Press space bar to start again'
-    text = INFO_FONT.render(text, True, BLACK)
+    text = f'Time {st.run_time:.1f} seconds.'
+    text = HEADER_FONT.render(text, True, BLACK)
     rect = text.get_rect()
     rect.center = 300, 300
+    screen.blit(text, rect)
+
+    text = f'Press space bar to start again.'
+    text = INFO_FONT.render(text, True, BLACK)
+    rect = text.get_rect()
+    rect.center = 300, 400
     screen.blit(text, rect)
 
 
@@ -96,7 +102,7 @@ def paint_intro():
         'at the center of the 5 arrow pattern.',
         'Use the 4 arrow keys indicate the',
         'correct direction.',
-        'You have 45 seconds.',
+        '',
         'Press the space bar to start a game.',
         'Good luck.',
     )

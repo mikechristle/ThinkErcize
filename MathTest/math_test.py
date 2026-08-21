@@ -65,6 +65,7 @@ def main():
                     if cycle == 0:
                         st.game_active = False
                         st.time = time() - st.time
+                        print(f'math_test {st.score} {st.time:.1f}')
                     else:
                         setup_round()
                     paint()

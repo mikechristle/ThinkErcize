@@ -12,7 +12,7 @@ SCREEN_HEIGHT = 480
 # Initialize pygame and setup the window
 py.init()
 screen = py.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-py.display.set_caption("MathTest   V1.0")
+py.display.set_caption("MathTest   V1.1")
 
 HEADER_FONT = py.font.SysFont('Arial', 60)
 INFO_FONT = py.font.SysFont('Arial', 28)

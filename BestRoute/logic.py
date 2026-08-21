@@ -55,7 +55,7 @@ def start_game():
 def click(x, y):
     """Process clicks on the game board."""
 
-    # Ignore clicks outside of the game board
+    # Ignore clicks outside the game board
     if x < 0 or x >= st.grid_size or y < 0 or y >= st.grid_size:
         return
 
@@ -81,6 +81,7 @@ def click(x, y):
             st.car.remove(dog)
             st.house_count -= 1
             if st.house_count == 0:
+                print(f'best_route {st.level} {st.least_miles} {st.miles}')
                 st.state = st.ST_IDLE
 
 

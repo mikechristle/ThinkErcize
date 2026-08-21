@@ -3,7 +3,6 @@
 # Mike Christle 2022
 # ---------------------------------------------------------------------------
 
-
 import pygame as py
 import state as st
 
@@ -35,7 +34,7 @@ START_X0 = 3 * IMAGE_WIDTH // 4
 # Initialize pygame and setup the window
 py.init()
 screen = py.display.set_mode((IMAGE_WIDTH, IMAGE_HEIGHT))
-py.display.set_caption('Best Route   V1.3')
+py.display.set_caption('Best Route   V1.4')
 
 bg_image = py.Surface((IMAGE_WIDTH, IMAGE_HEIGHT))
 offset = 0

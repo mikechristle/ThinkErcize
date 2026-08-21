@@ -16,7 +16,7 @@ paint_btns()
 paint_intro()
 paint()
 
-# 0.5 Second timer event to move trains
+# 500 mSec timer event to move trains
 pg.time.set_timer(pg.USEREVENT, 500)
 
 while True:

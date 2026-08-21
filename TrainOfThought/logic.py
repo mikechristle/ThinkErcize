@@ -47,6 +47,7 @@ def move_trains():
     if train_count == 0 and len(st.trains) == 0:
         st.game_active = False
         paint_btns()
+        print(f'train_of_thought {st.difficulty_level} {st.game_score}')
 
     # For each currently active train
     for _ in range(len(st.trains)):

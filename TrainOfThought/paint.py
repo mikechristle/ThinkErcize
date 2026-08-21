@@ -15,10 +15,10 @@ CELL_SIZE = 36
 IMAGE_WIDTH = st.GRID_WIDTH * CELL_SIZE
 IMAGE_HEIGHT = st.GRID_HEIGHT * CELL_SIZE
 
-# Initialize pygame and setup the window
+# Initialize pygame and set up the window
 pg.init()
 screen = pg.display.set_mode((IMAGE_WIDTH, IMAGE_HEIGHT + CELL_SIZE))
-pg.display.set_caption('Train Of Thought   V1.2')
+pg.display.set_caption('Train Of Thought   V1.3')
 
 bg_image = pg.Surface((IMAGE_WIDTH, IMAGE_HEIGHT))
 btn_image = pg.Surface((IMAGE_WIDTH, CELL_SIZE))

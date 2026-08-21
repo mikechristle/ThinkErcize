@@ -9,10 +9,10 @@ import state as st
 
 from sys import exit
 from logic import start_game, start_round, check_click
-from paint import paint, get_xy, show_intro, update_status, new_game,\
+from paint import paint, get_xy, show_intro, show_status, new_game,\
                   fire_laser, show_count
 
-# 1.0 Second timer event
+# 1 Sec timer event
 pg.time.set_timer(pg.USEREVENT, 1000)
 
 delay_count = 0
@@ -37,7 +37,7 @@ while True:
             # Start a new round
             case [pg.USEREVENT, st.ST_START]:
                 start_round()
-                update_status()
+                show_status()
                 paint()
                 delay_count -= 1
                 match delay_count:
@@ -75,6 +75,8 @@ while True:
                         delay_count = 5
                         st.state = st.ST_START
                 else:
+                    show_status()
                     new_game()
                     st.state = st.ST_IDLE
+                    print(f'laser_path {st.score}')
 

@@ -16,10 +16,10 @@ IMAGE_WIDTH = CELL_COUNT * CELL_SIZE
 IMAGE_HEIGHT = CELL_COUNT * CELL_SIZE
 STATUS_HEIGHT = CELL_SIZE // 2
 
-# Initialize pygame and setup the window
+# Initialize pygame and set up the window
 pg.init()
 screen = pg.display.set_mode((IMAGE_WIDTH, IMAGE_HEIGHT + STATUS_HEIGHT))
-pg.display.set_caption('Laser Path   V1.3')
+pg.display.set_caption('Laser Path   V1.4')
 
 bg_image = pg.Surface((IMAGE_WIDTH, IMAGE_HEIGHT))
 st_image = pg.Surface((IMAGE_WIDTH, STATUS_HEIGHT))
@@ -47,16 +47,12 @@ RED = 255, 0, 0
 def paint():
     """Paint the screen."""
 
-    screen.fill(BLACK)
     screen.blit(bg_image, (0, 0))
-    screen.blit(st_image, (0, (CELL_SIZE * 7) + 1))
-
     match st.state:
         case st.ST_SHOW:
             show_mirrors()
         case st.ST_WAIT:
             show_laser()
-
     pg.display.update()
 
 
@@ -109,7 +105,7 @@ def show_laser():
 
 
 # ---------------------------------------------------------------------------
-def update_status():
+def show_status():
     """Update the contents of the status bar."""
 
     text = f'   Score {st.score}   '\
@@ -118,6 +114,8 @@ def update_status():
     text = INFO_FONT.render(text, True, WHITE)
     st_image.fill(GRAY)
     st_image.blit(text, (0, 5))
+    screen.blit(st_image, (0, CELL_SIZE * 7))
+    pg.display.update()
 
 
 # ---------------------------------------------------------------------------

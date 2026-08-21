@@ -8,14 +8,11 @@ import state as st
 
 from paint import paint, paint_intro
 from logic import start_round, check
+from time import time
 
-timeout_counter = 0
 
 # Initialize window with instructions
 paint_intro()
-
-# 1.0 Second timer event
-pg.time.set_timer(pg.USEREVENT, 1000)
 
 while True:
 
@@ -31,7 +28,7 @@ while True:
             case pg.KEYDOWN if not st.game_active:
                 if event.key == pg.K_SPACE:
                     start_round()
-                    timeout_counter = 30
+                    st.run_time = time()
                     paint()
 
             # Right and left arrow keys for player input
@@ -39,11 +36,8 @@ while True:
                 if event.key == pg.K_LEFT or \
                    event.key == pg.K_RIGHT:
                     check(event.key)
-                    paint()
-
-            # Thirty second round timer
-            case pg.USEREVENT if st.game_active:
-                timeout_counter -= 1
-                if timeout_counter == 0:
-                    st.game_active = False
+                    if st.total == 25:
+                        st.run_time = time() - st.run_time
+                        st.game_active = False
+                        print(f'word_color {st.score} {st.run_time:.1f}')
                     paint()

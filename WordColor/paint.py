@@ -20,10 +20,10 @@ LEFT_CENTER = IMAGE_WIDTH // 4, IMAGE_HEIGHT // 2
 RIGHT_CENTER = 3 * IMAGE_WIDTH // 4, IMAGE_HEIGHT // 2
 
 
-# Initialize pygame and setup the window
+# Initialize pygame and set up the window
 pg.init()
 screen = pg.display.set_mode((IMAGE_WIDTH, IMAGE_HEIGHT))
-pg.display.set_caption('Word Color   V1.1')
+pg.display.set_caption('Word Color   V1.2')
 
 WORD_FONT = pg.font.SysFont('Arial', 80)
 HEADER_FONT = pg.font.SysFont('Arial', 56)
@@ -44,6 +44,17 @@ def paint():
     """Paint the screen."""
 
     screen.fill(BG_COLOR)
+
+    if st.game_active:
+        paint_game()
+    else:
+        paint_results()
+
+    pg.display.update()
+
+
+# ---------------------------------------------------------------------------
+def paint_game():
 
     # Reminders
     text = f'WORD                           COLOR'
@@ -72,13 +83,26 @@ def paint():
     rect.center = RIGHT_CENTER
     screen.blit(text, rect)
 
-    # When the round is over display the score
-    if not st.game_active:
-        text = f'Round {st.cycle}   Score {st.score} / {st.total}'
-        text = INFO_FONT.render(text, True, BLACK)
-        screen.blit(text, (10, IMAGE_HEIGHT - 50))
 
-    pg.display.update()
+# ---------------------------------------------------------------------------
+def paint_results():
+    text = f'Round {st.cycle}'
+    text = HEADER_FONT.render(text, True, BLACK)
+    rect = text.get_rect()
+    rect.center = (IMAGE_WIDTH // 2, 100)
+    screen.blit(text, rect)
+
+    text = f'Score {st.score} / {st.total}'
+    text = HEADER_FONT.render(text, True, BLACK)
+    rect = text.get_rect()
+    rect.center = (IMAGE_WIDTH // 2, 200)
+    screen.blit(text, rect)
+
+    text = f'Run Time {st.run_time:.1f} Sec'
+    text = HEADER_FONT.render(text, True, BLACK)
+    rect = text.get_rect()
+    rect.center = (IMAGE_WIDTH // 2, 300)
+    screen.blit(text, rect)
 
 
 # ---------------------------------------------------------------------------
@@ -91,7 +115,7 @@ def paint_intro():
         'the color of the word on the right.',
         'If they match, press the right arrow key.',
         'If they do not match, press the left arrow key.',
-        'You have 30 seconds for each round.',
+        '',
         'Press the space bar to start a round.',
     )
 

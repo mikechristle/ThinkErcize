@@ -8,6 +8,7 @@ word_color_match = False
 score = 0
 total = 0
 cycle = 0
+run_time = 0
 
 left_word = 0
 left_color = 0

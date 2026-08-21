@@ -11,7 +11,7 @@ from sys import exit
 from paint import paint, get_xy, show_intro
 from logic import set_pattern, check_click
 
-# 0.25 Second timer event
+# 250 mSec timer event
 pg.time.set_timer(pg.USEREVENT, 250)
 
 show_intro()
@@ -52,6 +52,7 @@ while True:
                         st.start_time = time() - st.start_time
                         st.state = st.ST_IDLE
                         paint()
+                        print(f'origami {st.score} {st.start_time:.1f}')
                     else:
                         st.state = st.ST_DONE
 

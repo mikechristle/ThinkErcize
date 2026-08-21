@@ -10,7 +10,7 @@ from time import time
 from paint import paint, get_xy, show_intro, init_tiles
 from logic import start_game, pick_new_tile, click, clear_grid
 
-# 1.0 Second timer event
+# 1-Second timer event
 pg.time.set_timer(pg.USEREVENT, 1000)
 
 start_time = 0
@@ -42,10 +42,11 @@ while True:
                     pick_new_tile()
                 elif st.state == st.ST_IDLE:
                     st.run_time = round(time() - start_time, 1)
+                    print(f'tile_match {st.run_time}')
                     clear_grid()
                 paint()
 
-            # Display a count down timer to start a game
+            # Display a count-down timer to start a game
             case [pg.USEREVENT, st.ST_START]:
                 st.delay_count -= 1
                 if st.delay_count == 0:

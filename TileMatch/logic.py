@@ -119,7 +119,7 @@ def click(x, y):
         st.grid[y][x].color = st.new_tile.color
         tile_count += 1
 
-    # If all tiles are removed, the the game
+    # If all tiles are removed, the game
     if tile_count == 0:
         st.state = st.ST_IDLE
 

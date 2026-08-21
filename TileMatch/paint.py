@@ -16,10 +16,10 @@ NEW_TILE_LOC = 50, IMAGE_HEIGHT // 2
 OFFSET_X = 100 + (3 * CELL_SIZE // 2)
 OFFSET_Y = 20 + (3 * CELL_SIZE // 2)
 
-# Initialize pygame and setup the window
+# Initialize pygame and set up the window
 pg.init()
 screen = pg.display.set_mode((IMAGE_WIDTH, IMAGE_HEIGHT))
-pg.display.set_caption('Tile Match   V1.2')
+pg.display.set_caption('Tile Match   V1.3')
 
 BG_SIZE = 8 * CELL_SIZE
 bg_image = pg.Surface((BG_SIZE, BG_SIZE))

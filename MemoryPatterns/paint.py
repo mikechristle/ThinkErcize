@@ -17,7 +17,7 @@ TILE_SIZE = CELL_SIZE - 7
 # Initialize pygame and setup the window
 pg.init()
 screen = pg.display.set_mode((IMAGE_WIDTH, IMAGE_HEIGHT))
-pg.display.set_caption('Memory Patterns   V1.2')
+pg.display.set_caption('Memory Patterns   V1.3')
 
 bg_image = pg.Surface((BG_SIZE, BG_SIZE))
 offset_x = 0

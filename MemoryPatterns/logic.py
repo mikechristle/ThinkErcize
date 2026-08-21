@@ -72,3 +72,4 @@ def click(x, y):
             st.level += 1
         if st.cycle == 10:
             st.state = st.ST_INTRO
+            print(f'memory_patterns {st.score}')

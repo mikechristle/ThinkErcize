@@ -10,7 +10,7 @@ from sys import exit
 from paint import paint, paint_intro, paint_background, get_xy, paint_count
 from logic import set_pattern, click
 
-# 0.5 Second timer event
+# 500 mSec timer event
 pg.time.set_timer(pg.USEREVENT, 500)
 
 paint_intro()

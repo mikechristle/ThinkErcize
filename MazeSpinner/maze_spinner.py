@@ -53,7 +53,7 @@ def main():
                     move_ball(event.key)
                     paint()
 
-                # One second timer event to rotate maze
+                # One-second timer event to rotate maze
                 case pg.USEREVENT if st.game_active:
                     rotate_maze()
                     paint()
@@ -61,7 +61,7 @@ def main():
 
 # ---------------------------------------------------------------------------
 def rotate_maze():
-    """One second timer event to rotate maze."""
+    """One-second timer event to rotate maze."""
 
     global count, angle
 
@@ -93,6 +93,7 @@ def move_ball(key):
         st.game_active = False
         end_time = time()
         st.elapsed_time = end_time - start_time
+        print(f'maze_spinner {st.elapsed_time:.1f}')
 
 
 # ---------------------------------------------------------------------------

@@ -19,7 +19,7 @@ IMAGE_CENTER = SCREEN_SIZE // 2, SCREEN_SIZE // 2
 # Initialize pygame and setup the window
 pg.init()
 screen = pg.display.set_mode((SCREEN_SIZE, SCREEN_SIZE))
-pg.display.set_caption("Maze Spinner   V1.1")
+pg.display.set_caption("Maze Spinner   V1.2")
 maze_image = pg.Surface((IMAGE_SIZE, IMAGE_SIZE))
 
 HEADER_FONT = pg.font.SysFont('Arial', 64)

@@ -81,6 +81,7 @@ def click(x, y):
         if len(clicked_images) >= 48:
             st.grid[y][x] = idx, st.CLICK
             st.game_active = False
+            print('thats_new 48')
 
         # Else, add more images
         else:
@@ -91,3 +92,4 @@ def click(x, y):
     elif status == st.CLICK:
         st.grid[y][x] = idx, st.ERROR
         st.game_active = False
+        print(f'thats_new {len(clicked_images)}')

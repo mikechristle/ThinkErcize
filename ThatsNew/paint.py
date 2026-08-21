@@ -18,10 +18,10 @@ IMAGE_HEIGHT = 7 * CELL_SIZE
 STATUS_HEIGHT = CELL_SIZE
 STATUS_LOC = IMAGE_WIDTH // 2, int(6.5 * CELL_SIZE)
 
-# Initialize pygame and setup the window
+# Initialize pygame and set up the window
 pg.init()
 screen = pg.display.set_mode((IMAGE_WIDTH, IMAGE_HEIGHT))
-pg.display.set_caption("What's New   V1.1")
+pg.display.set_caption("What's New   V1.2")
 
 HEADER_FONT = pg.font.SysFont('Arial', 56)
 INFO_FONT = pg.font.SysFont('Arial', 28)

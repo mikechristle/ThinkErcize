@@ -107,6 +107,7 @@ def move_player(key):
     elif cell_state == 3:
         st.game_active = False
         st.run_time = time() - st.run_time
+        print(f'maze_escape {st.run_time:.1f}')
 
 
 # ---------------------------------------------------------------------------

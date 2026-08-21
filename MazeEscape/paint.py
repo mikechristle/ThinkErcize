@@ -19,7 +19,7 @@ walls = [(0, 0)] * VIEW_WIDTH
 
 # Initialize pygame and setup the window
 pg.init()
-pg.display.set_caption("Maze Escape   V1.1")
+pg.display.set_caption("Maze Escape   V1.2")
 
 screen = pg.display.set_mode((VIEW_WIDTH, VIEW_HEIGHT))
 view_image = pg.Surface((VIEW_WIDTH, VIEW_HEIGHT))
